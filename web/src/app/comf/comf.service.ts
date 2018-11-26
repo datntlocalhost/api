@@ -21,9 +21,10 @@ export class ComfService {
   checkValidation(body: ValidationRequestModel): Observable<any> {
 
     return this.http.post<any>(
-      `${this.apiUrl}/test`,
-      { name: 'a', age: 'a' }
-    );
+      `${this.apiUrl}/validator`,
+      body, {
+        observe: 'response'
+    });
   }
 
   matchParameters(input: any[], params: MethodParamModel[]): any[] {

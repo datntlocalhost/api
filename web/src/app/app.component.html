@@ -82,9 +82,9 @@
                 <th>Description</th>
                 <th [innerHtml]="methodInfo.desc"></th>
               </tr>
-              <tr>
-                <th>Parameters</th>
-                <th *ngIf="methodInfo.params">
+              <tr *ngIf="methodInfo.params">
+                <th>Parameters[{{methodInfo.params.length}}]</th>
+                <th>
                   <span *ngFor="let param of methodInfo.params">
                     {{ param.name }} - {{ param.type }} - {{ param.desc }}
                   </span>

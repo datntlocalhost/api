@@ -3,7 +3,6 @@ package jp.co.run.service;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,11 +35,7 @@ public class ValidationService {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		
-		HttpHeaders headers = new HttpHeaders();
-		
-		headers.add("Access-Control-Allow-Origin", "*");
-		
-		return new ResponseEntity<>(ResponseUtil.createResult(allClass), headers , HttpStatus.OK);
+		return new ResponseEntity<>(ResponseUtil.createResult(allClass), HttpStatus.OK);
 	}
 	
 	/**
@@ -70,10 +65,6 @@ public class ValidationService {
 			throw new ParameterNotMatchException();
 		}
 		
-		HttpHeaders headers = new HttpHeaders();
-		
-		headers.add("Access-Control-Allow-Origin", "*");
-		
-		return new ResponseEntity<>(ResponseUtil.createResult(result), headers, HttpStatus.OK);
+		return new ResponseEntity<>(ResponseUtil.createResult(result), HttpStatus.OK);
 	}
 }

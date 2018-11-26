@@ -3,15 +3,13 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
-  ElementRef,
-  ViewChildren
+  ElementRef
 } from '@angular/core';
 import { ComfService } from './comf/comf.service';
 import { ClassModel } from 'src/shared/model/class.model';
 import { isNullOrUndefined } from 'util';
 import { MethodModel } from 'src/shared/model/method.model';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MethodParamModel } from 'src/shared/model/method-param.model';
+import { ResponseModel } from 'src/shared/model/response/response.model';
 import { Constants } from 'src/shared/common/constants';
 import { ValidationRequestModel } from 'src/shared/model/request/validation-request.model';
 
@@ -141,40 +139,43 @@ export class AppComponent implements OnInit, AfterViewInit {
               body.className = this.methodInfo.class;
               body.methodId = this.methodInfo.id;
               body.parameters = params;
-              console.log(body);
               this.comfService.checkValidation(body).subscribe(
                 response => {
-                  console.log(response.body);
+                  const value: ResponseModel = response.body;
+                  if (!isNullOrUndefined(value)) {
+                    if (!isNullOrUndefined(value.result)) {
+                      this.line = this.generateMessage(statement, value.result, true);
+                    }
+                  }
                 },
                 error => {
-                  console.error(error);
+                  const value: ResponseModel = error.error;
+                  if (!isNullOrUndefined(value)) {
+                    if (!isNullOrUndefined(value.error)) {
+                      this.line = this.generateMessage(statement, value.error, false);
+                    }
+                  }
                 }
               );
             } else {
-              this.line =
-              statement +
-              Constants.ELEMENT_NEWLINE +
-              Constants.SYMBOL_ENTER +
-              Constants.ERROR +
-              'Parameter not matches.';
+              this.line = this.generateMessage(statement, 'Parameter not matches.', false);
             }
-            // this.line =
-            //   statement +
-            //   Constants.ELEMENT_NEWLINE +
-            //   Constants.SYMBOL_ENTER +
-            //   Constants.RESULT +
-            //   '';
           } else {
-            this.line =
-              statement +
-              Constants.ELEMENT_NEWLINE +
-              Constants.SYMBOL_ENTER +
-              Constants.ERROR +
-              'Parameter not matches.';
+            this.line = this.generateMessage(statement, 'Parameter not matches.', false);
           }
           this.terminalInput.nativeElement.value = Constants.BLANK;
         }
       }
     }
+  }
+
+  generateMessage(statement: string, result: string, type: boolean) {
+    let msg: string = statement + Constants.ELEMENT_NEWLINE + Constants.SYMBOL_ENTER;
+    if (type) {
+      msg += Constants.RESULT;
+    } else {
+      msg += Constants.ERROR;
+    }
+    return msg += result;
   }
 }

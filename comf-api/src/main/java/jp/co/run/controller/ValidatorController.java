@@ -2,8 +2,8 @@ package jp.co.run.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jp.co.run.exception.AbstractCustomException;
-import jp.co.run.model.Test;
 import jp.co.run.model.request.ValidationRequestModel;
 import jp.co.run.service.ValidationService;
 
@@ -19,6 +18,7 @@ import jp.co.run.service.ValidationService;
  * The Class ValidatorController.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ValidatorController {
 	
@@ -54,13 +54,6 @@ public class ValidatorController {
 	 */
 	@PostMapping("/validator")
 	public ResponseEntity<?> executeValidation(@Valid @RequestBody ValidationRequestModel request) throws AbstractCustomException {
-		System.err.println(request.getClassName());
 		return validationService.executeMethod(request);
-	}
-	
-	@PostMapping("/test")
-	public ResponseEntity<?> excutee(@RequestBody Test test) {
-		System.err.println("sdadsasad");
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
