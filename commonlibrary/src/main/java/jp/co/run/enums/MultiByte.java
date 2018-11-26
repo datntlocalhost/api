@@ -1,6 +1,5 @@
-package jp.co.run;
+package jp.co.run.enums;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum MultiByte.
  * 

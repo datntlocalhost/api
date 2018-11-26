@@ -1,6 +1,6 @@
 package jp.co.run.validation;
 
-import jp.co.run.MultiByte;
+import jp.co.run.enums.MultiByte;
 import jp.co.run.util.StringUtil;
 
 // TODO: Auto-generated Javadoc
@@ -30,6 +30,25 @@ public class StringValidation {
      */
     public static boolean isNullOrEmpty(String str) {
         return isNull(str) || str.isEmpty();
+    }
+    
+    /**
+     * Checks if array of the strings input is null or empty.
+     * 
+     * @author datnguyen
+     * @param strs the strs
+     * @return true, if there are some of them is null or empty
+     */
+    public static boolean isNullOrEmpty(String... strs) {
+    	if (strs == null) {
+    		return true;
+    	}
+    	for (String str : strs) {
+    		if (isNullOrEmpty(str)) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
     /**
@@ -209,13 +228,11 @@ public class StringValidation {
      * @param multiByte the multi byte
      * @return true, if is checks for blank valid
      */
-    public static boolean isHasBlankValid(String str, boolean multiByte) {
+    public static boolean isHasBlank(String str, boolean multiByte) {
         if (isNull(str)) {
             return false;
         }
-        
-        String regex = multiByte ? StringUtil.stringToRegex(null, " 　", false) : 
-                                   StringUtil.stringToRegex(null, " ", false);
+        String regex = multiByte ? "^[^\\u0020\\u3000]*$" : "^[^\\u0020]*$";
         return !str.matches(regex);
     }
     
@@ -226,14 +243,14 @@ public class StringValidation {
      * @param multiByte the multi byte
      * @return true, if is checks for first blank valid
      */
-    public static boolean isHasFirstBlankValid(String str, boolean multiByte) {
+    public static boolean isHasFirstBlank(String str, boolean multiByte) {
         if (isNullOrEmpty(str)) {
             return false;
         }
         char firstChar = str.charAt(0);
-        return multiByte ? firstChar == ' ' || firstChar == '　' : firstChar == ' ';
+        return multiByte ? firstChar == 0x20 || firstChar == 0x3000 : firstChar == 0x20;
     }
-    
+   
     /**
      * Checks if is checks for last blank valid.
      *
@@ -241,22 +258,11 @@ public class StringValidation {
      * @param multiByte the multi byte
      * @return true, if is checks for last blank valid
      */
-    public static boolean isHasLastBlankValid(String str, boolean multiByte) {
+    public static boolean isHasLastBlank(String str, boolean multiByte) {
         if (isNullOrEmpty(str)) {
             return false;
         }
-        
         char lastChar = str.charAt(str.length() - 1);
-        return multiByte ? lastChar == ' ' || lastChar == '　' : lastChar == ' '; 
-    }
-    
-    /**
-     * The main method.
-     *
-     * @author datnguyen
-     * @param args the arguments
-     */
-    public static void main(String[] args) {
-        System.err.println(isHasLastBlankValid("a", false));
+        return multiByte ? lastChar == 0x20 || lastChar == 0x3000 : lastChar == 0x20; 
     }
 }

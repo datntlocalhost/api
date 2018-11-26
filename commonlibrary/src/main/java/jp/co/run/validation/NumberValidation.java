@@ -1,49 +1,56 @@
 package jp.co.run.validation;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class NumberValidation.
+ * 
+ * @author datnguyen
  */
 public class NumberValidation {
-
+	
     /**
-     * Checks if is number.
+     * Checks if the string input is number.
      *
-     * @param str the str
-     * @param multiByteCheck the multi byte check
-     * @return true, if is number
+     * @author datnguyen
+     * @param str the string input want to check
+     * @param hasDoubleByteNumber true if the string input have double-byte character
+     * @return true, if the string input is number
      */
-    public static boolean isNumber(String str, boolean multiByteCheck) {
+    public static boolean isNumber(String str, boolean hasDoubleByteNumber) {
         if (StringValidation.isNullOrEmpty(str)) {
             return false;
         }
-        String regex = multiByteCheck
-            ? "^((-)|(－))?[\\u0030-\\u0039\\uff10-\\uff19]*(((.)|(．))[\\u0030-\\u0039\\uff10-\\uff19]*)?$"
-            : "^-?[\\u0030-\\u0039]*(\\.[\\u0030-\\u0039]*)?$";
-        return str.matches(regex);
-    }
-    
-    public static boolean isIntegerNumber(String str, boolean isDoubleByteNumber) {
-        if (!isNumber(str, isDoubleByteNumber)) {
-            return false;
-        }
-        return str.indexOf(".") != -1 || (isDoubleByteNumber && str.indexOf("．") != -1);
-    }
-    
-    public static boolean isFloatNumber(String str) {
-        if (!isNumber(str, true)) {
-            return false;
-        }
-        
-        return true;
+		String regex = hasDoubleByteNumber
+				? "^((\\u002D)|(\\uFF0D))?[\\u0030-\\u0039\\uff10-\\uff19]*(((\\u002E)|(\\uFF0E))[\\u0030-\\u0039\\uff10-\\uff19]+)?$"
+				: "^\\u002D?[\\u0030-\\u0039]*(\\u002E[\\u0030-\\u0039]*)?$";
+		return str.matches(regex);
     }
     
     /**
-     * The main method.
+     * Checks if the string input is integer number.
      *
-     * @param args the arguments
+     * @author datnguyen
+     * @param str the string input want to check
+     * @param hasDoubleByteNumber true if the string input have double-byte character
+     * @return true, if the string input is integer number
      */
-    public static void main(String[] args) {
-        System.err.println(isIntegerNumber("123456", true));
+    public static boolean isIntegerNumber(String str, boolean hasDoubleByteNumber) {
+        if (!isNumber(str, hasDoubleByteNumber)) {
+        	return false;
+        }
+        if (hasDoubleByteNumber && str.indexOf(0xFF0E) != -1) {
+        	return false;
+        }
+        return str.indexOf(0x2E) == -1;
+    }
+    
+    /**
+     * Checks if the string input is float number.
+     *
+     * @param str the string input want to check
+     * @param hasDoubleByteNumber true if the string input have double-byte character
+     * @return true, if the string input is float number
+     */
+    public static boolean isFloatNumber(String str, boolean hasDoubleByteNumber) {
+        return isNumber(str, hasDoubleByteNumber);
     }
 }
