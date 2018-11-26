@@ -1,0 +1,377 @@
+[
+	{
+		"clazz": "jp.co.run.string.StringValidation",
+		"description": "StringValidation class",
+		"methods": [
+			{
+				"signature": 1,
+				"methodName": "isEmpty",
+				"description": "Check if the string input is empty.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					}
+				],
+				"returns": "<b>true</b> if the string is empty.<br> <b>false</b> if the string is null or not empty."
+			},
+			{
+				"signature": 1,
+				"methodName": "isBlank",
+				"description": "Check if the string input is whitespace.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					}
+				],
+				"returns": "<b>true</b> if the string is null or empty or whitespace.<br> <b>false</b> if the string is not empty."
+			},
+			{
+				"signature": 1,
+				"methodName": "isByteCharacterOnly",
+				"description": "Check if the string is just contain single-byte character.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					}
+				],
+				"returns": "<b>true</b> if the string is just contain single-byte and printable character. <br><b>false</b> if the string is contain double-byte, un-printable character or the string is null. "
+			},
+			{
+				"signature": 1,
+				"methodName": "isTwoByteCharacterOnly",
+				"description": "Check if a string is just contain double-byte character.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>str</b> is contain double-byte character. <br><b>false</b> if <b>str</b> is null or empty or contain single-byte character."
+			},
+			{
+				"signature": 1,
+				"methodName": "isThreeByteCharacterOnly",
+				"description": "Check if the string is three byte character only.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>str</b> is just contain three byte character. <br> Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isNotSymbol",
+				"description": "Check if the string input is NOT contain any symbol character.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "The pattern to matches."
+					}
+				],
+				"returns": "<b>true</b> if the string is <b>NOT</b> contain any symbol character. <br><b>false</b> if the string is null or empty or contain symbol character."
+			},
+			{
+				"signature": 1,
+				"methodName": "isEmailValid",
+				"description": "",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The email string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": " The pattern to compare. Ex: ^[^\\s\\W@]+@[^\\s\\W@]+\\.[^\\s@]+$"
+					}
+				],
+				"returns": "<b>true</b> if the <b>str</b> is valid pattern email format. <br><b>false</b> if the <b>str</b> is null or empty or invalid pattern email format."
+			},
+			{
+				"signature": 1,
+				"methodName": "isPasswordValid",
+				"description": "Check if the password is valid with pattern.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The password want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "The pattern want to matches."
+					}
+				],
+				"returns": "<b>true</b> if <b>password</b> matches with <b>pattern</b>.<br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isKatakana",
+				"description": "Check if the string input is katakana.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "The string pattern that contain some character can put into the string."
+					}
+				],
+				"returns": "true if <b>str</b> is karakana, else return false."
+			},
+			{
+				"signature": 1,
+				"methodName": "isHiragana",
+				"description": "Check if the string input is hiragana string.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "Contain some character that can input into hiragana string."
+					}
+				],
+				"returns": "true if the string is hiragana string. else return false."
+			},
+			{
+				"signature": 1,
+				"methodName": "isKanji",
+				"description": "Check if the string input is Kanji.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "The pattern contain some character can put into the string input."
+					}
+				],
+				"returns": "<b>true</b> if <b>str</b> is Kanji string. <br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isHasBlankValid",
+				"description": "Check if the string input has whitespace.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "multiByte",
+						"typeParameter": "boolean",
+						"description": "If want to check with double-byte whitespace . Set true, else set false."
+					}
+				],
+				"returns": "<b>true</b> if <b>str</b> has whitespace. <br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isHasFirstBlankValid",
+				"description": "Check if the first character of the string input is whitespace.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "multiByte",
+						"typeParameter": "boolean",
+						"description": " If want to check with multi-byte whitespace set true. Else set false."
+					}
+				],
+				"returns": "<b>true</b> if the first character of <b>str</b> is whitespace character.<br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isHasLastBlankValid",
+				"description": "Check if the last character of the string input is whitespace.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "str",
+						"typeParameter": "String",
+						"description": "The string want to check."
+					},
+					{
+						"nameParameter": "multiByte",
+						"typeParameter": "boolean",
+						"description": "If want to check with multi-byte whitespace set true. Else set false."
+					}
+				],
+				"returns": "<b>true</b> if the last character of <b>str</b> is whitespace.<br> Else return <b>false</b>."
+			}
+		]
+	},
+	{
+		"clazz": "jp.co.run.string.DateTimeValidation",
+		"description": "DateTimeValidation class",
+		"methods": [
+			{
+				"signature": 1,
+				"methodName": "isFormatDateTimeValid",
+				"description": "Check if date string is matches with pattern. DO NOT check valid date value.",
+				"numParameter": 2,
+				"parameterModels": [
+					{
+						"nameParameter": "date",
+						"typeParameter": "String",
+						"description": "The date string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "The pattern want to matches."
+					}
+				],
+				"returns": "<b>true</b> if <b>date</b> is matches with <b>pattern</b>. <br><b>false</b> if <b>date</b> is <b>NOT</b> match with <b>pattern</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isDateTimeValid",
+				"description": "Check if the date string is matches with pattern AND valid date value.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "date",
+						"typeParameter": "String",
+						"description": "The date string want to check."
+					},
+					{
+						"nameParameter": "pattern",
+						"typeParameter": "String",
+						"description": "The pattern want to matches."
+					}
+				],
+				"returns": "<b>true</b> if <b>date</b> is valid date value and match with <b>pattern</b>.<br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isYearValid",
+				"description": "Check if the year is valid.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "year",
+						"typeParameter": "int",
+						"description": "The year want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>year > 0</b>. <br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isMonthValid",
+				"description": "Check if the month is valid.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "month",
+						"typeParameter": "int",
+						"description": "The month want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>month</b> ranges from 1 to 12.<br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isDayValid",
+				"description": "Check if the day value is valid.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "day",
+						"typeParameter": "int",
+						"description": "The num day want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>day > 0 && day <= 31</b>. <br>Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isMinuteValid",
+				"description": "",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "minute",
+						"typeParameter": "int",
+						"description": "The minute want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>minute >= 0 && minute < 60 </b>.Else return <b>false</b>"
+			},
+			{
+				"signature": 1,
+				"methodName": "isSecondValid",
+				"description": "Check if the second value is valid.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "second",
+						"typeParameter": "int",
+						"description": "The seconds want to check."
+					}
+				],
+				"returns": " <b>true</b> if <b>second >= 0 && hours < 60</b>. Else return <b>false</b>."
+			},
+			{
+				"signature": 1,
+				"methodName": "isHoursValid",
+				"description": "Check if the hours value is valid.",
+				"numParameter": 1,
+				"parameterModels": [
+					{
+						"nameParameter": "hours",
+						"typeParameter": "int",
+						"description": "The hours want to check."
+					}
+				],
+				"returns": "<b>true</b> if <b>hours >= 0 && hours <= 24</b>. <br>. Else return <b>false</b>."
+			}
+		]
+	}
+]

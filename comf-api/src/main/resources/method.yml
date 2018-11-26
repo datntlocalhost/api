@@ -1,0 +1,17 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+  - name: jp.co.run.string.StringValidation
+    desc: string validation
+    methods:
+      - id: string1
+        name: isNull
+        desc: Check if the string input is null.
+        params: 
+          - name: str
+            type: String
+            desc: The string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: 
+
