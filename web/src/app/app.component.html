@@ -1,0 +1,116 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark sticky-top">
+    <div class="container-fluid">
+      <a class="line anim-typewriter">Common Functions Api</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarResponsive"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarResponsive" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <div class="search-box">
+              <input
+                class="search-txt"
+                type="text"
+                name=""
+                placeholder="Class - Method ..."
+              />
+              <a class="search-btn"> <i class="fas fa-search"></i> </a>
+            </div>
+          </li>
+          <li class="nav-item reload-btn"><i class="fas fa-sync-alt"></i></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container-fluid my-container" style="border: 1px solid limegreen">
+  <div class="row">
+    <div class="col-md-4 side-bar">
+      <div class="row class-menu">
+        <ul class="list-item" *ngIf="class">
+          <li *ngFor="let clazz of class" (click)="onClickClass($event)">
+            {{ clazz.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="row method-menu">
+        <ul class="list-item" *ngIf="methods">
+          <li *ngFor="let method of methods" (click)="onClickMethod($event)">
+            {{ method.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="container">
+        <div class="row description-area" *ngIf="banner">{{ banner }}</div>
+
+        <div class="row description-area" *ngIf="!banner && classInfo">
+          <table class="table table-sm table-unborder">
+            <tbody>
+              <tr>
+                <th>Class</th>
+                <th>{{ classInfo.name }}</th>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <th>{{ classInfo.desc }}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row description-area" *ngIf="!banner && methodInfo">
+          <table class="table table-sm table-unborder">
+            <tbody>
+              <tr>
+                <th>Class</th>
+                <th [innerHtml]="methodInfo.class"></th>
+              </tr>
+              <tr>
+                <th>Method</th>
+                <th [innerHtml]="methodInfo.name"></th>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <th [innerHtml]="methodInfo.desc"></th>
+              </tr>
+              <tr>
+                <th>Parameters</th>
+                <th *ngIf="methodInfo.params">
+                  <span *ngFor="let param of methodInfo.params">
+                    {{ param.name }} - {{ param.type }} - {{ param.desc }}
+                  </span>
+                </th>
+              </tr>
+              <tr>
+                <th>Return</th>
+                <th *ngIf="methodInfo.returns">
+                  {{ methodInfo.returns.type }} <br />
+                  {{ methodInfo.returns.desc }}
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <span *ngIf="terminal">Type parameters to check!</span>
+        <div class="row terminal" *ngIf="terminal">
+          <div class="container">
+            <div [innerHTML]="line"></div>
+            <input #terminalInput type="text" (keydown)="presskey($event)"
+              style="width: 100%; background: none; border: none; outline: none; color: limegreen;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>GMO-Z.com RUNSYSTEM</footer>
