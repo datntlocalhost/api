@@ -1,0 +1,242 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+# jp.co.run.validation.StringValidation
+  - name: jp.co.run.validation.StringValidation
+    desc: string validation
+    methods:
+# isNull
+      - id: FV1
+        name: isNull
+        desc: Checks if the string input is null.
+        params: 
+          - name: str
+            type: String
+            desc: The string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is null, else return false
+# isNullOrEmpty
+      - id: FV1.1
+        name: isNullOrEmpty
+        desc: Checks if the string input is null or empty
+        params:
+          - name: str
+            type: String
+            desc: The string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is null or empty, else return false
+# isNullOrEmpty
+      - id: FV1.2
+        name: isNullOrEmpty
+        desc: Checks if array of string input have any element is null or empty
+        params:
+          - name: strs
+            type: String[]
+            desc: Array of string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if have one or more element of string array is null or empty, else return false.
+# isBlank
+      - id: FV2
+        name: isBlank
+        desc: Checks if the string is blank (single-byte and double-byte whitespace).
+        params:
+          - name: str
+            type: String
+            desc: The string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is blank (whitespace).
+
+# isMaxLength
+      - id: FV3
+        name: isMaxLength
+        desc: Checks if the string input is max length
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: maxLength
+            type: int
+            desc: the max length
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if length of the string input is less than or equal to maxLength, else return false
+
+# isMinLength
+      - id: FV4
+        name: isMinLength
+        desc: Checks if the string input is min length
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: minLength
+            type: int
+            desc: the min length
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if length of the string input is greater than or equal to maxLength, else return false
+
+# isByteCharacterOnly
+      - id: FV5
+        name: isByteCharacterOnly
+        desc: Checks if the string input is just contain single-byte character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is just contain single-byte character, else return false
+# isTwoByteCharacterOnly
+      - id: FV6
+        name: isTwoByteCharacterOnly
+        desc: Checks if the string input is just contain double-byte character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is just contain double-byte character, else return false
+# isThreeByteCharacterOnly
+      - id: FV7
+        name: isThreeByteCharacterOnly
+        desc: Checks if the string input is just contain three-byte character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is just contain three-byte character, else return false
+# isFourByteCharacterOnly
+      - id: FV8
+        name: isFourByteCharacterOnly
+        desc: Checks if the string input is just contain four-byte character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is just contain four-byte character, else return false
+
+# isKatakana
+      - id: FV14
+        name: isKatakana
+        desc: Checks if the string input is just contain katakana character
+        params: 
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: pattern
+            type: String
+            desc: The pattern string contain some symbol or character that can put into the string input
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input just contain katakana character and character in pattern, else return false
+          
+# isHiragana
+      - id: FV15
+        name: isHiragana
+        desc: Checks if the string input is just contain haragana character
+        params: 
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: pattern
+            type: String
+            desc: The pattern string contain some symbol or character that can put into the string input
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input just contain haragana character and character in pattern, else return false
+          
+# isKanji
+      - id: FV16
+        name: isKanji
+        desc: Checks if the string input is just contain kanji character
+        params: 
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: pattern
+            type: String
+            desc: The pattern string contain some symbol or character that can put into the string input
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input just contain kanji character and character in pattern, else return false
+          
+# isHasBlank
+      - id: FV41
+        name: isHasBlank
+        desc: Checks if the string input has blank (whitespace) character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: multiByte
+            type: boolean
+            desc: Setup true if want to check double-byte whitespace character within string input
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if there are blank (whitespace) within string input, else return false
+
+# isHasFirstBlank
+      - id: FV42
+        name: isHasFirstBlank
+        desc: Checks if the string input has blank (whitespace) at first character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: multiByte
+            type: boolean
+            desc: Setup true if want to check double-byte whitespace character within string input
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if has blank (whitespace) character at first character of the string input, else return fasle
+
+# isHasLastBlank
+      - id: FV43
+        name: isHasLastBlank
+        desc: Checks if the string input has blank (whitespace) at last character
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: multiByte
+            type: boolean
+            desc: Setup true if want to check double-byte whitespace character within string input
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if has blank (whitespace) character at last character of the string input, else return fasle
+#      - id: string2
+#        name:
+#        desc:
+#        params:
+#          - name:
+#            type:
+#            desc:
+#        returns:
+#          value:
+#          type:
+#          desc:

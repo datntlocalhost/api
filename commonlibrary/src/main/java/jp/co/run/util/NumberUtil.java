@@ -29,14 +29,15 @@ public class NumberUtil {
         if (charArray[0] == 0x2D || (charArray[0] == 0xFF0D && hasDoubleByteNumber)) {
             startDigit = 1;
             negative = true;
-        }        
+        }
         for (int i = startDigit; i < charArray.length; i++) {
-            int digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30 : charArray[i] - 0xFF10;
+            int digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30
+                : charArray[i] - 0xFF10;
             number = number * 10 + digit;
         }
         return negative ? -number : number;
     }
-    
+
     /**
      * Parses the string input to the long number.
      * 
@@ -47,30 +48,27 @@ public class NumberUtil {
      * @throws NumberFormatException if the string input is invalid number format
      */
     public static Long parseLong(String str, boolean hasDoubleByteNumber) {
-    	if (!NumberValidation.isIntegerNumber(str, hasDoubleByteNumber)) {
+
+        if (!NumberValidation.isIntegerNumber(str, hasDoubleByteNumber)) {
             throw new NumberFormatException(str);
         }
-    	boolean negative = false;
+
+        boolean negative = false;
         int startDigit = 0;
         Long number = 0L;
         char[] charArray = str.toCharArray();
+
         if (charArray[0] == 0x2D || (charArray[0] == 0xFF0D && hasDoubleByteNumber)) {
             startDigit = 1;
             negative = true;
-        }        
+        }
+
         for (int i = startDigit; i < charArray.length; i++) {
-            int digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30 : charArray[i] - 0xFF10;
+            int digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30
+                : charArray[i] - 0xFF10;
             number = number * 10 + digit;
         }
+
         return negative ? -number : number;
     }
-    
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     */
-    public static void main(String[] args) {
-		System.err.println(parseLong("12365456465456",false));
-	}
 }

@@ -102,21 +102,19 @@ body {
 }
 
 .side-bar {
-    min-height: 500px;
     border-right: 1px solid limegreen;
     overflow-y: auto;
 }
 
 .class-menu {
-    height: 35%;
+    height: 150px;
     overflow-y: auto;
     border-bottom: 1px solid limegreen;
 }
 
 .method-menu {
-    height: 65%;
+    height: 370px;
     overflow-y: auto;
-    border-bottom: 1px solid limegreen;
 }
 
 .list-item {
@@ -136,7 +134,22 @@ body {
 }
 
 .description-area {
-    min-height: 380px;
+    height: 250px;
+    overflow: auto;
+}
+
+.input-area {
+    height: 241px;
+    overflow: initial;
+}
+
+.input-txt {
+
+    width: 300px;
+    background: none;
+    border: 1px solid limegreen;
+    outline: none;
+    color: limegreen;
 }
 
 .terminal {

@@ -18,7 +18,12 @@ export class ComfService {
     });
   }
 
-  checkValidation(body: ValidationRequestModel): Observable<any> {
+  checkValidation(className: string, methodId: string, params: any[]): Observable<any> {
+
+    const body: ValidationRequestModel = new ValidationRequestModel();
+    body.className = className;
+    body.methodId = methodId;
+    body.parameters = params;
 
     return this.http.post<any>(
       `${this.apiUrl}/validator`,
@@ -78,9 +83,9 @@ export class ComfService {
       return result;
     }
 
-    if (str === Constants.TRUE) {
+    if (str.trim() === Constants.TRUE) {
       result = true;
-    } else if (str === Constants.FALSE) {
+    } else if (str.trim() === Constants.FALSE) {
       result = false;
     }
     return result;
@@ -93,11 +98,11 @@ export class ComfService {
       return result;
     }
 
-    if (isNaN(+str)) {
+    if (isNaN(+(str.trim()))) {
       return result;
     }
 
-    return +str;
+    return +(str.trim());
   }
 
   stringToNull(str: string) {

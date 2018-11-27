@@ -1,0 +1,6 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+# jp.co.run.validation.NumberValidation
+  - name: jp.co.run.validation.DateValidation
+    desc: date validation
+    methods:

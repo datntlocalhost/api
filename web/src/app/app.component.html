@@ -29,8 +29,12 @@
     </div>
   </nav>
 </header>
-<div class="container-fluid my-container" style="border: 1px solid limegreen">
+
+
+<div class="container-fluid my-container" style="border: 1px solid limegreen;">
   <div class="row">
+
+
     <div class="col-md-4 side-bar">
       <div class="row class-menu">
         <ul class="list-item" *ngIf="class">
@@ -41,7 +45,7 @@
       </div>
       <div class="row method-menu">
         <ul class="list-item" *ngIf="methods">
-          <li *ngFor="let method of methods" (click)="onClickMethod($event)">
+          <li *ngFor="let method of methods" (click)="onClickMethod($event)" id="{{method.id}}">
             {{ method.name }}
           </li>
         </ul>
@@ -86,7 +90,7 @@
                 <th>Parameters[{{methodInfo.params.length}}]</th>
                 <th>
                   <span *ngFor="let param of methodInfo.params">
-                    {{ param.name }} - {{ param.type }} - {{ param.desc }}
+                    ❖ {{ param.name }} - {{ param.type }} - {{ param.desc }} <br>
                   </span>
                 </th>
               </tr>
@@ -100,17 +104,61 @@
             </tbody>
           </table>
         </div>
-        <span *ngIf="terminal">Type parameters to check!</span>
-        <div class="row terminal" *ngIf="terminal">
+        
+
+        <!-- Input area -->
+        <div class="row">
+
+          <div class="col-md-8">
+              <div class="input-area">
+                  <form>
+                    <div class="form-group row">
+                        <label for="input1" class="col-sm-2 col-form-label">str</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm">
+                          </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input1" class="col-sm-2 col-form-label">mintr</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input1" class="col-sm-2 col-form-label">mintr</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input1" class="col-sm-2 col-form-label">mintr</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success form-control">Submit</button>
+                  </form>
+                </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- <span *ngIf="terminal">Type parameters to check!</span> -->
+        <!-- <div class="row terminal" *ngIf="terminal">
           <div class="container">
             <div [innerHTML]="line"></div>
-            <input #terminalInput type="text" (keydown)="presskey($event)"
+            <input #terminalInput type="text" (keydown)="pressKeyEvent($event)"
               style="width: 100%; background: none; border: none; outline: none; color: limegreen;"
             />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
+
+
+
 <footer>GMO-Z.com RUNSYSTEM</footer>

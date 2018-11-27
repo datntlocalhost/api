@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import jp.co.run.exception.AbstractCustomException;
-import jp.co.run.exception.ClassNotFoundException;
 import jp.co.run.exception.MethodNotFoundException;
 import jp.co.run.exception.ParameterNotMatchException;
 import jp.co.run.model.ClassModel;
@@ -52,7 +51,7 @@ public class ValidationService {
 		Method   method = MethodManager.getInstance().getMethod(clazz, request.getMethodId());
 		
 		if (clazz == null) {
-			throw new ClassNotFoundException();
+			throw new jp.co.run.exception.ClassNotFoundException();
 		}
 		
 		if (method == null) {
