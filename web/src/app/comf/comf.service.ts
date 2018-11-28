@@ -23,17 +23,18 @@ export class ComfService {
     });
   }
 
-  checkValidation(className: string, methodId: string, params: any[]): Observable<any> {
-
+  checkValidation(
+    className: string,
+    methodId: string,
+    params: any[]
+  ): Observable<any> {
     const body: ValidationRequestModel = new ValidationRequestModel();
     body.className = className;
     body.methodId = methodId;
     body.parameters = params;
 
-    return this.http.post<any>(
-      `${this.apiUrl}/validator`,
-      body, {
-        observe: 'response'
+    return this.http.post<any>(`${this.apiUrl}/validator`, body, {
+      observe: 'response'
     });
   }
 
@@ -135,15 +136,14 @@ export class ComfService {
       return result;
     }
 
-    if (isNaN(+(str.trim()))) {
+    if (isNaN(+str.trim())) {
       return result;
     }
 
-    return +(str.trim());
+    return +str.trim();
   }
 
   stringToNull(str: string, isArray: boolean) {
-
     if (isArray) {
       const params: any[] = new Array();
       const strs = str.split(Constants.REGEX_PARAM);

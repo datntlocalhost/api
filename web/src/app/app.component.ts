@@ -1,7 +1,4 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ComfService } from './comf/comf.service';
 import { ClassModel } from 'src/shared/model/class.model';
 import { isNullOrUndefined } from 'util';
@@ -17,7 +14,6 @@ import { ResponseModel } from 'src/shared/model/response/response.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   title = 'comf-web';
 
   class: ClassModel[] = new Array();
@@ -34,9 +30,7 @@ export class AppComponent implements OnInit {
 
   resultMessage: string;
 
-  constructor(
-    private comfService: ComfService
-  ) {}
+  constructor(private comfService: ComfService) {}
 
   ngOnInit() {
     this.formInput = null;
@@ -113,7 +107,6 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitCheck() {
-
     const paramsInput: any = this.formInput.value;
     const paramsKey: string[] = Object.keys(paramsInput);
     const paramsValue: any[] = new Array();
@@ -126,21 +119,30 @@ export class AppComponent implements OnInit {
 
     console.log(statement);
 
-    this.comfService.checkValidation(
-      this.methodInfo.class,
-      this.methodInfo.id,
-      this.comfService.matchParameters(paramsValue, this.methodInfo.params))
+    this.comfService
+      .checkValidation(
+        this.methodInfo.class,
+        this.methodInfo.id,
+        this.comfService.matchParameters(paramsValue, this.methodInfo.params)
+      )
       .subscribe(
-      response => {
-        const result: ResponseModel = response.body;
-        this.resultMessage = this.generateResultMessage(statement, result.result, true);
-      },
-      error => {
-        const result: ResponseModel = error.error;
-        this.resultMessage = this.generateResultMessage(statement, result.error, false);
-      }
-    );
-
+        response => {
+          const result: ResponseModel = response.body;
+          this.resultMessage = this.generateResultMessage(
+            statement,
+            result.result,
+            true
+          );
+        },
+        error => {
+          const result: ResponseModel = error.error;
+          this.resultMessage = this.generateResultMessage(
+            statement,
+            result.error,
+            false
+          );
+        }
+      );
   }
 
   initMethod(clazz: ClassModel) {
@@ -158,7 +160,10 @@ export class AppComponent implements OnInit {
       const params: MethodParamModel[] = method.params;
       const formControls: any = {};
       params.forEach(value => {
-        formControls[value.name] = new FormControl(Constants.BLANK, Validators.required);
+        formControls[value.name] = new FormControl(
+          Constants.BLANK,
+          Validators.required
+        );
       });
       this.formInput = new FormGroup(formControls);
     }
@@ -235,23 +240,34 @@ export class AppComponent implements OnInit {
   // }
 
   generateStatement(params: string[]) {
-
     if (isNullOrUndefined(params)) {
       return Constants.BLANK;
     }
 
-    let statement = Constants.STR_STATEMENT_FORMAT.replace('%s', this.methodInfo.name);
+    let statement = Constants.STR_STATEMENT_FORMAT.replace(
+      '%s',
+      this.methodInfo.name
+    );
     let paramString = Constants.BLANK;
 
     for (let i = 0; i < params.length; i++) {
       if (i === params.length - 1) {
-        paramString += (this.methodInfo.params[i].type === Constants.TYPE_STRING && params[i] !== Constants.STR_NULL ?
-        Constants.SYMBOL_DOUBLE_QUOTE + params[i] + Constants.SYMBOL_DOUBLE_QUOTE :
-        params[i]);
+        paramString +=
+          this.methodInfo.params[i].type === Constants.TYPE_STRING &&
+          params[i] !== Constants.STR_NULL
+            ? Constants.SYMBOL_DOUBLE_QUOTE +
+              params[i] +
+              Constants.SYMBOL_DOUBLE_QUOTE
+            : params[i];
       } else {
-        paramString += (this.methodInfo.params[i].type === Constants.TYPE_STRING && params[i] !== Constants.STR_NULL ?
-        Constants.SYMBOL_DOUBLE_QUOTE + params[i] + Constants.SYMBOL_DOUBLE_QUOTE + Constants.SYMBOL_COMMA :
-        params[i] + Constants.SYMBOL_COMMA);
+        paramString +=
+          this.methodInfo.params[i].type === Constants.TYPE_STRING &&
+          params[i] !== Constants.STR_NULL
+            ? Constants.SYMBOL_DOUBLE_QUOTE +
+              params[i] +
+              Constants.SYMBOL_DOUBLE_QUOTE +
+              Constants.SYMBOL_COMMA
+            : params[i] + Constants.SYMBOL_COMMA;
       }
     }
 
@@ -260,12 +276,13 @@ export class AppComponent implements OnInit {
   }
 
   generateResultMessage(statement: string, result: string, type: boolean) {
-    let msg: string = statement + Constants.ELEMENT_NEWLINE + Constants.SYMBOL_ENTER;
+    let msg: string =
+      statement + Constants.ELEMENT_NEWLINE + Constants.SYMBOL_ENTER;
     if (type) {
       msg += Constants.RESULT;
     } else {
       msg += Constants.ERROR;
     }
-    return msg += result;
+    return (msg += result);
   }
 }
