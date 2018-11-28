@@ -54,6 +54,9 @@ public class ValidatorController {
 	 */
 	@PostMapping("/validator")
 	public ResponseEntity<?> executeValidation(@Valid @RequestBody ValidationRequestModel request) throws AbstractCustomException {
+	    for (Object obj : request.getParameters()) {
+	        System.err.println(obj);
+	    }
 		return validationService.executeMethod(request);
 	}
 }

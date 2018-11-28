@@ -10,7 +10,7 @@ public class Util {
     /**
      * Checks if is obj null.
      *
-     * @param obj the obj
+     * @param  obj the obj
      * @return true, if is obj null
      */
     public static boolean isObjNull(Object obj) {
@@ -20,7 +20,7 @@ public class Util {
     /**
      * Checks if is obj null.
      *
-     * @param objs the objs
+     * @param  objs the objs
      * @return true, if is obj null
      */
     public static boolean isObjNull(Object... objs) {

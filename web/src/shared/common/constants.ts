@@ -13,6 +13,8 @@ export class Constants {
     public static RESULT = ' result: ';
     public static TRUE = 'true';
     public static FALSE = 'false';
-    public static NULL = 'null';
+    public static STR_NULL = 'null';
     public static STR_STATEMENT_FORMAT = '%s(%p);';
+    public static TYPE_STRING = 'String';
+    public static REGEX_PARAM = '<pr>';
 }

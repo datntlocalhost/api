@@ -118,12 +118,22 @@ body {
 }
 
 .list-item {
-    margin-left: 1em;
+    width: 100%;
     list-style-type: none;
 }
 
 .list-item li {
+    width: 100%;
+    padding-left: 2.5%;
+    box-sizing: border-box;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.list-item-active {
+    color: black;
+    background-color: limegreen;
+    transition: 0.3s;
 }
 
 .table-unborder,
@@ -139,17 +149,47 @@ body {
 }
 
 .input-area {
-    height: 241px;
+    height: auto;
     overflow: initial;
 }
 
 .input-txt {
-
-    width: 300px;
+    width: 100%;
+    padding-left: 1%;
+    box-sizing: border-box;
     background: none;
     border: 1px solid limegreen;
     outline: none;
     color: limegreen;
+}
+
+.result-area {
+    width: 100%;
+    padding-left: 1%;
+    min-height: 70px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    color: limegreen;
+    border: 1px solid limegreen;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    color: limegreen;
+    background-color: transparent;
+    border: 1px solid limegreen;
+    outline: none;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    color: black;
+    background-color: limegreen;
+    transition: 0.3s;
 }
 
 .terminal {

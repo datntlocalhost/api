@@ -5,12 +5,17 @@ import { MethodParamModel } from 'src/shared/model/method-param.model';
 import { isNullOrUndefined } from 'util';
 import { Constants } from 'src/shared/common/constants';
 import { ValidationRequestModel } from 'src/shared/model/request/validation-request.model';
+import { LocalStorageService } from 'ngx-store';
+import { MethodModel } from 'src/shared/model/method.model';
 
 @Injectable({ providedIn: 'root' })
 export class ComfService {
   private apiUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private $localStorage: LocalStorageService
+  ) {}
 
   loadClassModel(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/validator`, {
@@ -30,6 +35,24 @@ export class ComfService {
       body, {
         observe: 'response'
     });
+  }
+
+  storeLocal(key: string, value: any) {
+    this.$localStorage.set(key, value);
+  }
+
+  searchMethod(methodName: string) {
+    const methods: MethodModel[] = new Array();
+    const storedValues: MethodModel[] = this.$localStorage.get('methods');
+
+    if (!isNullOrUndefined(storedValues) && storedValues.length > 0) {
+      storedValues.forEach(value => {
+        if (value.name === methodName) {
+          methods.push(value);
+        }
+      });
+    }
+    return methods;
   }
 
   matchParameters(input: any[], params: MethodParamModel[]): any[] {
@@ -65,18 +88,32 @@ export class ComfService {
       case 'Float':
       case 'double':
       case 'Double':
-        return this.stringToNumber(data);
+        return this.stringToNumber(data, false);
+      case 'int[]':
+      case 'Integer[]':
+      case 'long[]':
+      case 'Long[]':
+      case 'float[]':
+      case 'Float[]':
+      case 'double[]':
+      case 'Double[]':
+        return this.stringToNumber(data, true);
       case 'boolean':
       case 'Boolean':
-        return this.stringToBoolean(data);
+        return this.stringToBoolean(data, false);
+      case 'boolean[]':
+      case 'Boolean[]':
+        return this.stringToBoolean(data, true);
       case 'String':
-        return this.stringToNull(data);
+        return this.stringToNull(data, false);
+      case 'String[]':
+        return this.stringToNull(data, true);
       default:
         return undefined;
     }
   }
 
-  stringToBoolean(str: string) {
+  stringToBoolean(str: string, isArray: boolean) {
     let result = null;
 
     if (isNullOrUndefined(str)) {
@@ -91,7 +128,7 @@ export class ComfService {
     return result;
   }
 
-  stringToNumber(str: string) {
+  stringToNumber(str: string, isArray: boolean) {
     const result = null;
 
     if (isNullOrUndefined(str)) {
@@ -105,7 +142,19 @@ export class ComfService {
     return +(str.trim());
   }
 
-  stringToNull(str: string) {
-    return str === Constants.NULL ? null : str;
+  stringToNull(str: string, isArray: boolean) {
+
+    if (isArray) {
+      const params: any[] = new Array();
+      const strs = str.split(Constants.REGEX_PARAM);
+
+      strs.forEach(value => {
+        params.push(value === 'null' ? null : value);
+      });
+
+      return params;
+    }
+
+    return str === Constants.STR_NULL ? null : str;
   }
 }

@@ -13,28 +13,33 @@ public class NumberUtil {
      * Parses the string input to integer number.
      *
      * @author datnguyen
-     * @param str the string input want to parse
-     * @param hasDoubleByteNumber true if the string input have double-byte character number
+     * @param  str the string input want to parse
+     * @param  hasDoubleByteNumber true if the string input have double-byte character number
      * @return the integer
      * @throws NumberFormatException if the string input is invalid integer number format
      */
     public static Integer parseInt(String str, boolean hasDoubleByteNumber) {
+
         if (!NumberValidation.isIntegerNumber(str, hasDoubleByteNumber)) {
             throw new NumberFormatException(str);
         }
+
         boolean negative = false;
         int startDigit = 0;
         Integer number = 0;
         char[] charArray = str.toCharArray();
+
         if (charArray[0] == 0x2D || (charArray[0] == 0xFF0D && hasDoubleByteNumber)) {
             startDigit = 1;
             negative = true;
         }
+
         for (int i = startDigit; i < charArray.length; i++) {
             int digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30
                 : charArray[i] - 0xFF10;
             number = number * 10 + digit;
         }
+
         return negative ? -number : number;
     }
 
@@ -42,8 +47,8 @@ public class NumberUtil {
      * Parses the string input to the long number.
      * 
      * @author datnguyen
-     * @param str the string input want to parse
-     * @param hasDoubleByteNumber true if the string input have double-byte character
+     * @param  str the string input want to parse
+     * @param  hasDoubleByteNumber true if the string input have double-byte character
      * @return the long
      * @throws NumberFormatException if the string input is invalid number format
      */

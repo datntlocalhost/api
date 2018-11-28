@@ -1,28 +1,24 @@
 import {
   Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ElementRef
+  OnInit
 } from '@angular/core';
 import { ComfService } from './comf/comf.service';
 import { ClassModel } from 'src/shared/model/class.model';
 import { isNullOrUndefined } from 'util';
 import { MethodModel } from 'src/shared/model/method.model';
-import { ResponseModel } from 'src/shared/model/response/response.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MethodParamModel } from 'src/shared/model/method-param.model';
 import { Constants } from 'src/shared/common/constants';
+import { ResponseModel } from 'src/shared/model/response/response.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
+
   title = 'comf-web';
-
-  @ViewChild('terminalInput') terminalInput: ElementRef;
-
-  banner: string;
 
   class: ClassModel[] = new Array();
   methods: MethodModel[] = new Array();
@@ -30,29 +26,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   classInfo: ClassModel;
   methodInfo: MethodModel;
 
-  terminal = false;
+  formInput: FormGroup;
 
-  line;
+  formSearch: FormGroup = new FormGroup({
+    methodName: new FormControl(Constants.BLANK, [])
+  });
 
-  index;
-
-  input: any[];
+  resultMessage: string;
 
   constructor(
     private comfService: ComfService
   ) {}
 
   ngOnInit() {
-    this.banner = 'baner';
-    this.index = 0;
-    this.input = new Array();
+    this.formInput = null;
     this.callApi();
-  }
-
-  ngAfterViewInit() {
-    if (!isNullOrUndefined(this.terminalInput)) {
-      this.terminalInput.nativeElement.focus();
-    }
   }
 
   callApi() {
@@ -72,44 +60,87 @@ export class AppComponent implements OnInit, AfterViewInit {
       data.forEach(value1 => {
         this.initMethod(value1);
       });
+      this.comfService.storeLocal('methods', this.methods);
     }
   }
 
   onClickClass(event) {
+    this.formInput = null;
+    this.resultMessage = null;
     const className: string = event.target.innerText;
-    this.banner = Constants.BLANK;
-    this.line = Constants.BLANK;
-    this.terminal = false;
     if (!isNullOrUndefined(className)) {
       this.methodInfo = null;
-      this.class.forEach(value => {
-        if (value.name === className) {
-          this.classInfo = value;
-          this.methods = new Array();
-          this.initMethod(this.classInfo);
-          return;
-        }
-      });
+      if (className === 'All') {
+        this.methods = new Array();
+        this.classInfo = null;
+        this.class.forEach(value => {
+          this.initMethod(value);
+        });
+      } else {
+        this.class.forEach(value => {
+          if (value.name === className) {
+            this.classInfo = value;
+            this.methods = new Array();
+            this.initMethod(this.classInfo);
+            return;
+          }
+        });
+      }
     }
   }
 
   onClickMethod(event) {
     const methodId: string = event.target.id;
-    this.banner = Constants.BLANK;
-    this.line = Constants.BLANK;
-    this.terminal = true;
-    if (!isNullOrUndefined(this.terminalInput)) {
-      this.terminalInput.nativeElement.focus();
-    }
+    const methodName: string = event.target.innerText;
+    this.resultMessage = null;
     if (!isNullOrUndefined(methodId)) {
       this.classInfo = null;
       this.methods.forEach(value => {
-        if (value.id === methodId) {
+        if (value.id === methodId && value.name === methodName) {
           this.methodInfo = value;
           return;
         }
       });
+      this.initForm(this.methodInfo);
     }
+  }
+
+  onSubmitSearch() {
+    const searchValue: string = this.formSearch.controls.methodName.value;
+    if (searchValue.trim().length > 0) {
+      this.methods = this.comfService.searchMethod(searchValue);
+    }
+  }
+
+  onSubmitCheck() {
+
+    const paramsInput: any = this.formInput.value;
+    const paramsKey: string[] = Object.keys(paramsInput);
+    const paramsValue: any[] = new Array();
+
+    paramsKey.forEach(value => {
+      paramsValue.push(paramsInput[value]);
+    });
+
+    const statement: string = this.generateStatement(paramsValue);
+
+    console.log(statement);
+
+    this.comfService.checkValidation(
+      this.methodInfo.class,
+      this.methodInfo.id,
+      this.comfService.matchParameters(paramsValue, this.methodInfo.params))
+      .subscribe(
+      response => {
+        const result: ResponseModel = response.body;
+        this.resultMessage = this.generateResultMessage(statement, result.result, true);
+      },
+      error => {
+        const result: ResponseModel = error.error;
+        this.resultMessage = this.generateResultMessage(statement, result.error, false);
+      }
+    );
+
   }
 
   initMethod(clazz: ClassModel) {
@@ -119,6 +150,17 @@ export class AppComponent implements OnInit, AfterViewInit {
         value.class = clazz.name;
         this.methods.push(value);
       });
+    }
+  }
+
+  initForm(method: MethodModel) {
+    if (!isNullOrUndefined(method)) {
+      const params: MethodParamModel[] = method.params;
+      const formControls: any = {};
+      params.forEach(value => {
+        formControls[value.name] = new FormControl(Constants.BLANK, Validators.required);
+      });
+      this.formInput = new FormGroup(formControls);
     }
   }
 
@@ -192,38 +234,38 @@ export class AppComponent implements OnInit, AfterViewInit {
   //   this.terminalInput.nativeElement.value = this.input[this.index] || Constants.BLANK;
   // }
 
-  // generateStatement(params: string[]) {
+  generateStatement(params: string[]) {
 
-  //   if (isNullOrUndefined(params)) {
-  //     return Constants.BLANK;
-  //   }
+    if (isNullOrUndefined(params)) {
+      return Constants.BLANK;
+    }
 
-  //   let statement = Constants.STR_STATEMENT_FORMAT.replace('%s', this.methodInfo.name);
-  //   let paramString = Constants.BLANK;
+    let statement = Constants.STR_STATEMENT_FORMAT.replace('%s', this.methodInfo.name);
+    let paramString = Constants.BLANK;
 
-  //   for (let i = 0; i < params.length; i++) {
-  //     if (i === params.length - 1) {
-  //       paramString += (this.methodInfo.params[i].type === 'String' && params[i] !== 'null' ?
-  //       Constants.SYMBOL_DOUBLE_QUOTE + params[i] + Constants.SYMBOL_DOUBLE_QUOTE :
-  //       params[i]);
-  //     } else {
-  //       paramString += (this.methodInfo.params[i].type === 'String' && params[i] !== 'null' ?
-  //       Constants.SYMBOL_DOUBLE_QUOTE + params[i] + Constants.SYMBOL_DOUBLE_QUOTE + Constants.SYMBOL_COMMA :
-  //       params[i] + Constants.SYMBOL_COMMA);
-  //     }
-  //   }
+    for (let i = 0; i < params.length; i++) {
+      if (i === params.length - 1) {
+        paramString += (this.methodInfo.params[i].type === Constants.TYPE_STRING && params[i] !== Constants.STR_NULL ?
+        Constants.SYMBOL_DOUBLE_QUOTE + params[i] + Constants.SYMBOL_DOUBLE_QUOTE :
+        params[i]);
+      } else {
+        paramString += (this.methodInfo.params[i].type === Constants.TYPE_STRING && params[i] !== Constants.STR_NULL ?
+        Constants.SYMBOL_DOUBLE_QUOTE + params[i] + Constants.SYMBOL_DOUBLE_QUOTE + Constants.SYMBOL_COMMA :
+        params[i] + Constants.SYMBOL_COMMA);
+      }
+    }
 
-  //   statement = statement.replace('%p', paramString);
-  //   return statement;
-  // }
+    statement = statement.replace('%p', paramString);
+    return statement;
+  }
 
-  // generateMessage(statement: string, result: string, type: boolean) {
-  //   let msg: string = statement + Constants.ELEMENT_NEWLINE + Constants.SYMBOL_ENTER;
-  //   if (type) {
-  //     msg += Constants.RESULT;
-  //   } else {
-  //     msg += Constants.ERROR;
-  //   }
-  //   return msg += result;
-  // }
+  generateResultMessage(statement: string, result: string, type: boolean) {
+    let msg: string = statement + Constants.ELEMENT_NEWLINE + Constants.SYMBOL_ENTER;
+    if (type) {
+      msg += Constants.RESULT;
+    } else {
+      msg += Constants.ERROR;
+    }
+    return msg += result;
+  }
 }

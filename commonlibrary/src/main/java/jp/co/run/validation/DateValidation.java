@@ -8,19 +8,20 @@ import jp.co.run.util.DateUtil;
 import jp.co.run.util.NumberUtil;
 
 /**
- * The Class DateValidation.
+ * The {@code DateValidation} class provides several methods for 
+ * checking validation of date time.
  * 
  * @author datnguyen
  */
-public class DateValidation {
+public final class DateValidation {
 
     /**
-     * Checks if the string input is date time.
+     * Checks if the string input is valid date time format
      *
      * @author datnguyen
-     * @param str the string input want to check
-     * @param pattern the pattern
-     * @return true, if the string input is date time
+     * @param  str the string input want to check
+     * @param  pattern the pattern
+     * @return true, if the string input is valid date time format
      */
     public static boolean isDateTime(String str, String pattern) {
 
@@ -40,12 +41,15 @@ public class DateValidation {
     }
 
     /**
-     * Checks if is date time limit.
-     *
-     * @param date the date
-     * @param minDate the min date
-     * @param maxDate the max date
-     * @return true, if is date time limit
+     * Checks if the date input is between the given date range.
+     * 
+     * @author datnguyen
+     * @param  date the date want to check.
+     * @param  minDate the min date.
+     * @param  maxDate the max date.
+     * @return true, if the date input is between the given date range, that mean 
+     *         the date input have to greater than or equal to min date and less than
+     *         or equal to max date.
      */
     public static boolean isDateTimeLimit(Date date, Date minDate, Date maxDate) {
 
@@ -57,13 +61,16 @@ public class DateValidation {
     }
 
     /**
-     * Checks if is date time limit.
-     *
-     * @param dateStr the date str
-     * @param minDateStr the min date str
-     * @param maxDateStr the max date str
-     * @param pattern the pattern
-     * @return true, if is date time limit
+     * Checks if the date input is between the given date range
+     * 
+     * @author datnguyen
+     * @param  dateStr the date string input want to check
+     * @param  minDateStr the min date string
+     * @param  maxDateStr the max date string
+     * @param  pattern the pattern
+     * @return true, if the date input is between the given date range, that mean the
+     *         date input have to greater than or equal to min date and less than or 
+     *         equal to max date
      */
     public static boolean isDateTimeLimit(String dateStr, String minDateStr, String maxDateStr, String pattern) {
 
@@ -79,10 +86,35 @@ public class DateValidation {
     }
 
     /**
-     * Checks if is year valid.
+     * Checks if the date from is less than or equal to the date to.
      *
      * @author datnguyen
-     * @param year the year
+     * @param  dateFrom the date from
+     * @param  dateTo the date to
+     * @param  pattern the pattern
+     * @return true, if the date from is less than or equal to the date to, 
+     *         false if parameter input is invalid or the date from is greater 
+     *         than the date to
+     */
+    public static boolean isFromLessOrEqualTo(String dateFrom, String dateTo, String pattern) {
+
+        if (!isDateTime(dateFrom, pattern) || !isDateTime(dateTo, pattern)) {
+            return false;
+        }
+
+        Date from = DateUtil.parseDate(dateFrom, pattern);
+        Date to = DateUtil.parseDate(dateTo, pattern);
+
+        return from != null && to != null && from.getTime() <= to.getTime();
+    }
+
+    /**
+     * Checks if is year valid.
+     * 
+     * <p> The {@code year} just between 0 to 9999
+     * 
+     * @author datnguyen
+     * @param  year the year
      * @return true, if the year is larger than zero and less than 10000
      */
     public static boolean isYear(int year) {
@@ -91,10 +123,13 @@ public class DateValidation {
 
     /**
      * Checks if the string input is valid year.
+     * 
+     * <p> The {@code year} just between 0 to 9999
+     * <p> The value of the argument str can be double-byte character
      *
      * @author datnguyen
-     * @param year the string input want to check
-     * @param hasDoubleByteChar true if the string input have double-byte character
+     * @param  year the string input want to check
+     * @param  hasDoubleByteChar true if the string input have double-byte character
      * @return true, if the string input is valid year
      */
     public static boolean isYear(String year, boolean hasDoubleByteChar) {
@@ -108,9 +143,11 @@ public class DateValidation {
 
     /**
      * Checks if is month valid.
+     * 
+     * <p> The {@code month} just between 1 to 12
      *
      * @author datnguyen
-     * @param month the month want to check
+     * @param  month the month want to check
      * @return true, if is month valid
      */
     public static boolean isMonth(int month) {
@@ -120,9 +157,12 @@ public class DateValidation {
     /**
      * Checks if is month.
      *
+     * <p> The {@code month} just between 1 to 12
+     * <p> The value of the argument str can be double-byte character
+     * 
      * @author datnguyen
-     * @param month the month
-     * @param hasDoubleByteChar the has double byte char
+     * @param  month the month
+     * @param  hasDoubleByteChar the has double byte char
      * @return true, if is month
      */
     public static boolean isMonth(String month, boolean hasDoubleByteChar) {
@@ -136,9 +176,11 @@ public class DateValidation {
 
     /**
      * Checks if is day valid.
-     *
-     * @param day the day
-     * @return true, if is day
+     * 
+     * <p> The {@code day} just between 1 to 31
+     * 
+     * @param  day the day want to check
+     * @return true, if is day is valid
      */
     public static boolean isDay(int day) {
         return day >= 1 && day <= 31;
@@ -146,9 +188,12 @@ public class DateValidation {
 
     /**
      * Checks if the string input is valid day.
+     * 
+     * <p> The {@code month} just between 1 to 31
+     * <p> The value of the argument str can be double-byte character
      *
-     * @param str the string want to check
-     * @param hasDoubleByteChar true if the string input have double-byte character
+     * @param  str the string want to check
+     * @param  hasDoubleByteChar true if the string input have double-byte character
      * @return true, if the string input is valid
      */
     public static boolean isDay(String str, boolean hasDoubleByteChar) {
@@ -163,8 +208,8 @@ public class DateValidation {
     /**
      * Checks if is hours.
      *
-     * @param hour the hour
-     * @param isFullHours true if want to check full hours format
+     * @param  hour the hour
+     * @param  isFullHours true if want to check full hours format
      * @return true, if is hours
      */
     public static boolean isHours(int hour, boolean isFullHours) {
@@ -174,9 +219,9 @@ public class DateValidation {
     /**
      * Checks if is hours.
      *
-     * @param str the str
-     * @param isFullHours the is full hours
-     * @param hasDoubleByteChar true if the string input have double-byte character
+     * @param  str the str
+     * @param  isFullHours the is full hours
+     * @param  hasDoubleByteChar true if the string input have double-byte character
      * @return true, if is hours
      */
     public static boolean isHours(String str, boolean isFullHours, boolean hasDoubleByteChar) {
@@ -191,7 +236,7 @@ public class DateValidation {
     /**
      * Checks if is minutes.
      *
-     * @param minute the minute
+     * @param  minute the minute
      * @return true, if is minutes
      */
     public static boolean isMinutes(int minute) {
@@ -201,8 +246,8 @@ public class DateValidation {
     /**
      * Checks if is minutes.
      *
-     * @param str the str
-     * @param hasDoubleByteChar true if the string input have double-byte character
+     * @param  str the str
+     * @param  hasDoubleByteChar true if the string input have double-byte character
      * @return true, if is minutes
      */
     public static boolean isMinutes(String str, boolean hasDoubleByteChar) {
@@ -217,7 +262,7 @@ public class DateValidation {
     /**
      * Checks if is seconds.
      *
-     * @param second the second
+     * @param  second the second
      * @return true, if is seconds
      */
     public static boolean isSeconds(int second) {
@@ -227,8 +272,8 @@ public class DateValidation {
     /**
      * Checks if is seconds.
      *
-     * @param str the str
-     * @param hasDoubleByteChar true if the string input have double-byte character
+     * @param  str the str
+     * @param  hasDoubleByteChar true if the string input have double-byte character
      * @return true, if is seconds
      */
     public static boolean isSeconds(String str, boolean hasDoubleByteChar) {

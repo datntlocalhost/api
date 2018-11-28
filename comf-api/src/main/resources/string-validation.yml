@@ -28,18 +28,7 @@ clazz:
           value: null
           type: boolean
           desc: Return true if the string input is null or empty, else return false
-# isNullOrEmpty
-      - id: FV1.2
-        name: isNullOrEmpty
-        desc: Checks if array of string input have any element is null or empty
-        params:
-          - name: strs
-            type: String[]
-            desc: Array of string want to check.
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if have one or more element of string array is null or empty, else return false.
+          
 # isBlank
       - id: FV2
         name: isBlank

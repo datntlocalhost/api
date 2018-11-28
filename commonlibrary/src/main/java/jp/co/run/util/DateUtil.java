@@ -18,8 +18,8 @@ public class DateUtil {
      * Parses the string to date object.
      *
      * @author datnguyen
-     * @param str the string want to parse
-     * @param pattern the pattern
+     * @param  str the string want to parse
+     * @param  pattern the pattern
      * @return the date, null if the string invalid
      */
     public static Date parseDate(String str, String pattern) {
@@ -39,8 +39,8 @@ public class DateUtil {
     /**
      * Date to string.
      *
-     * @param date the date
-     * @param pattern the pattern
+     * @param  date the date
+     * @param  pattern the pattern
      * @return the date string, return empty string if date is null or pattern is incorrect
      */
     public static String dateToString(Date date, String pattern) {
@@ -67,14 +67,15 @@ public class DateUtil {
      * Compare date.
      * 
      * @author datnguyen
-     * @param date the date
-     * @param anotherDate the another date
+     * @param  date the date
+     * @param  anotherDate the another date
      * @return 0 if the date is equal to anotherDate <br>
      *         1 if the date is greater than anotherDate <br>
-     *         -1 if the date is less than anotherDate <br>
-     *         -2 if the date or anotherDate is null
+     *        -1 if the date is less than anotherDate <br>
+     *        -2 if the date or anotherDate is null
      */
     public static int compareDate(Date date, Date anotherDate) {
+
         if (Util.isObjNull(date, anotherDate)) {
             return -2;
         }
@@ -92,9 +93,9 @@ public class DateUtil {
      * Compare date.
      * 
      * @author datnguyen
-     * @param dateStr the date string
-     * @param anotherDateStr the another date string
-     * @param pattern the pattern
+     * @param  dateStr the date string
+     * @param  anotherDateStr the another date string
+     * @param  pattern the pattern
      * @return 0 if the date is equal to anotherDate <br>
      *         1 if the date is greater than anotherDate <br>
      *         -1 if the date is less than anotherDate <br>
@@ -112,9 +113,9 @@ public class DateUtil {
      * Change date format.
      * 
      * @author datnguyen
-     * @param str the date string
-     * @param oldPattern the old pattern
-     * @param newPattern the new pattern
+     * @param  str the date string
+     * @param  oldPattern the old pattern
+     * @param  newPattern the new pattern
      * @return the new date format string, return empty string if parameter is invalid
      */
     public static String changeDateFormat(String str, String oldPattern, String newPattern) {

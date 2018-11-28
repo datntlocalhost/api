@@ -13,8 +13,8 @@ public class StringUtil {
      * String to regex.
      *
      * @author datnguyen
-     * @param str the str
-     * @param isInclude the is include
+     * @param  str the str
+     * @param  isInclude the is include
      * @return the string
      */
     public static String stringToRegex(String originalRegex, String extendRegex, boolean isInclude) {

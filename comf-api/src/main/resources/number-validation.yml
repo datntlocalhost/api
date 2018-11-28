@@ -1,6 +1,52 @@
 !!jp.co.run.model.LibraryModel
 clazz:
 # jp.co.run.validation.NumberValidation
-  - name: jp.co.run.validation.DateValidation
+  - name: jp.co.run.validation.NumberValidation
     desc: date validation
     methods:
+      - id: FV1
+        name: isNumber
+        desc: Checks if the string input is number format
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: hasDoubleByteNumber
+            type: boolean
+            desc: Set true if want to check with the string input contain double-byte character
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is number format, else return false
+
+# isIntegerNumber
+      - id: FV2
+        name: isIntegerNumber
+        desc: Checks if the string input is integer number format
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: hasDoubleByteNumber
+            type: boolean
+            desc: Set true if want to check with the string input contain double-byte character
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is integer number format, else return false
+
+# isFloatNumber
+      - id: FV3
+        name: isFloatNumber
+        desc: Checks if the string input is float number format
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: hasDoubleByteNumber
+            type: boolean
+            desc: Set true if want to check with the string input contain double-byte character
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is float number format, else return false
