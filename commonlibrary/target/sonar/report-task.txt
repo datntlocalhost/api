@@ -1,0 +1,6 @@
+projectKey=jp.co.run:common-library
+serverUrl=http://localhost:9000
+serverVersion=7.4.0.18908
+dashboardUrl=http://localhost:9000/dashboard?id=jp.co.run%3Acommon-library
+ceTaskId=AWdimxsd0i9CqA0yKA2O
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWdimxsd0i9CqA0yKA2O

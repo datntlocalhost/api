@@ -28,6 +28,12 @@ public final class NumberValidation {
 
         return str.matches(regex);
     }
+    
+    public static boolean isTwoByteNumber(String str) {
+        
+       return true;
+        
+    }
 
     /**
      * Checks if the string input is integer number.

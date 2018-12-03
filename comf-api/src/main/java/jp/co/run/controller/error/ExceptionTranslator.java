@@ -15,14 +15,14 @@ import jp.co.run.util.ResponseUtil;
 @CrossOrigin
 public class ExceptionTranslator {
 
-	/**
-	 * Process.
-	 *
-	 * @param exception the exception
-	 * @return the response entity
-	 */
-	@ExceptionHandler(AbstractCustomException.class)
-	public ResponseEntity<?> processCustomException(AbstractCustomException exception) {
-		return new ResponseEntity<>(ResponseUtil.createError(exception.getMessage()), exception.getHttpStatus());
-	}
+    /**
+     * Process.
+     *
+     * @param exception the exception
+     * @return the response entity
+     */
+    @ExceptionHandler(AbstractCustomException.class)
+    public ResponseEntity<?> processCustomException(AbstractCustomException exception) {
+        return new ResponseEntity<>(ResponseUtil.createError(exception.getMessage()), exception.getHttpStatus());
+    }
 }

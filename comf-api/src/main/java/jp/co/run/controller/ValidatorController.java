@@ -21,42 +21,40 @@ import jp.co.run.service.ValidationService;
 @CrossOrigin
 @RequestMapping("/api")
 public class ValidatorController {
-	
-	/** The validation service. */
-	private final ValidationService validationService;
-	
-	/**
-	 * Instantiates a new validator controller.
-	 *
-	 * @param validationService the validation service
-	 */
-	public ValidatorController(ValidationService validationService) {
-		this.validationService = validationService;
-	}
 
-	/**
-	 * Execute get list method.
-	 *
-	 * @return the response entity
-	 */
-	@GetMapping("/validator")
-	public ResponseEntity<?> executeGetListMethod() {
-		
-		return validationService.loadClassList();
-	}
-	
-	/**
-	 * Execute validation.
-	 *
-	 * @param request the request
-	 * @return the response entity
-	 * @throws Exception the exception
-	 */
-	@PostMapping("/validator")
-	public ResponseEntity<?> executeValidation(@Valid @RequestBody ValidationRequestModel request) throws AbstractCustomException {
-	    for (Object obj : request.getParameters()) {
-	        System.err.println(obj);
-	    }
-		return validationService.executeMethod(request);
-	}
+    /** The validation service. */
+    private final ValidationService validationService;
+
+    /**
+     * Instantiates a new validator controller.
+     *
+     * @param validationService the validation service
+     */
+    public ValidatorController(ValidationService validationService) {
+        this.validationService = validationService;
+    }
+
+    /**
+     * Execute get list method.
+     *
+     * @return the response entity
+     */
+    @GetMapping("/validator")
+    public ResponseEntity<?> executeGetListMethod() {
+
+        return validationService.loadClassList();
+    }
+
+    /**
+     * Execute validation.
+     *
+     * @param request the request
+     * @return the response entity
+     * @throws Exception the exception
+     */
+    @PostMapping("/validator")
+    public ResponseEntity<?> executeValidation(@Valid @RequestBody ValidationRequestModel request)
+        throws AbstractCustomException {
+        return validationService.executeMethod(request);
+    }
 }

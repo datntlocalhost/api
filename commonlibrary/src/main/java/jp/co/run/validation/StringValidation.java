@@ -21,6 +21,26 @@ public final class StringValidation {
     public static boolean isNull(String str) {
         return str == null;
     }
+    
+    public static boolean isEmpty(String str) {
+        
+        String regex = "^[\\]+$";
+        if (str == null) {
+            return false;
+        }
+        
+        return str.matches(regex);
+    }
+    
+    public static boolean isEmptyWithoutBlank(String str) {
+        String regex = "";
+        
+        if (str == null) {
+            return false;
+        }
+        
+        
+    }
 
     /**
      * Checks if the string input is null or empty.

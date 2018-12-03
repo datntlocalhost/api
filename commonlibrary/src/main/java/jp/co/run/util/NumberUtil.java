@@ -76,4 +76,61 @@ public class NumberUtil {
 
         return negative ? -number : number;
     }
+
+    /**
+     * Parses the string input to the float number.
+     * 
+     * @author datnguyen
+     * @param  str the string input want to parse
+     * @param  hasDoubleByteNumber true if the string input have double-byte character
+     * @return the float
+     * @throws NumberFormatException if the string input is invalid number format
+     */
+    public static Float parseFloat(String str, boolean hasDoubleByteNumber) {
+
+        if (!NumberValidation.isFloatNumber(str, hasDoubleByteNumber)) {
+            throw new NumberFormatException(str);
+        }
+
+        boolean negative = false;
+        int startDigit = 0;
+
+        float div = 0F;
+        float mod = 0F;
+        float toDiv = 1F;
+
+        char[] charArray = str.toCharArray();
+        int lenght = charArray.length;
+
+        if (charArray[0] == 0x2D || (charArray[0] == 0xFF0D && hasDoubleByteNumber)) {
+            startDigit = 1;
+            negative = true;
+        }
+
+        int i = startDigit;
+
+        for (; i < lenght; i++) {
+
+            if (charArray[i] == 0x2E || charArray[i] == 0xFF0E) {
+                i++;
+                break;
+            }
+
+            float digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30
+                : charArray[i] - 0xFF10;
+            div = (float) (div * 10.0 + digit);
+        }
+
+        if (i < lenght) {
+            for (; i < lenght; i++) {
+                float digit = charArray[i] - 0x30 >= 0 && charArray[i] - 0x30 <= 9 ? charArray[i] - 0x30
+                    : charArray[i] - 0xFF10;
+                mod = (float) (mod * 10.0 + digit);
+                toDiv *= 10;
+            }
+            mod /= toDiv;
+        }
+
+        return negative ? -(div + mod) : div + mod;
+    }
 }

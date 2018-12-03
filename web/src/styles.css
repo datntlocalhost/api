@@ -9,21 +9,21 @@
 }
 
 body {
-    color: limegreen;
+    color: black;
     font-family: 'Anonymous Pro', monospace;
     font-size: 1em;
-    background-color: #0C0D16;
+    background-color: white;
 }
 
 .search-area {
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid black;
 }
 
 .line {
     margin-top: 20px;
     line-height: 1em;
     font-size: 2em;
-    border-right: 2px solid limegreen;
+    border-right: 2px solid black;
     white-space: nowrap;
     overflow: hidden;
     transform: translateY(-50%);
@@ -33,13 +33,13 @@ body {
     height: 40px;
     width: 14em;
     transform: (-50%, -50%);
-    background: #1E1E1E;
-    border: 1px solid limegreen;
+    background: white;
+    border: 1px solid black;
     border-radius: 5px;
 }
 
 .search-btn {
-    color: limegreen;
+    color: black;
     float: right;
     width: 35px;
     height: 35px;
@@ -58,7 +58,7 @@ body {
     background: none;
     outline: none;
     float: left;
-    color: limegreen;
+    color: black;
     line-height: 40px;
     justify-content: center;
     align-content: center;
@@ -69,7 +69,7 @@ body {
     height: 40px;
     width: 40px;
     margin-left: 20px;
-    border: 1px solid limegreen;
+    border: 1px solid black;
     border-radius: 5px;
     background: #1E1E1E;
     justify-content: center;
@@ -94,7 +94,7 @@ body {
 
 @keyframes blinkTextCursor {
     from {
-        border-right-color: limegreen;
+        border-right-color: black;
     }
     to {
         border-right-color: transparent;
@@ -102,14 +102,14 @@ body {
 }
 
 .side-bar {
-    border-right: 1px solid limegreen;
+    border-right: 1px solid black;
     overflow-y: auto;
 }
 
 .class-menu {
     height: 150px;
     overflow-y: auto;
-    border-bottom: 1px solid limegreen;
+    border-bottom: 1px solid black;
 }
 
 .method-menu {
@@ -158,9 +158,9 @@ body {
     padding-left: 1%;
     box-sizing: border-box;
     background: none;
-    border: 1px solid limegreen;
+    border: 1px solid black;
     outline: none;
-    color: limegreen;
+    color: black;
 }
 
 .result-area {
@@ -170,8 +170,8 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
-    color: limegreen;
-    border: 1px solid limegreen;
+    color: black;
+    border: 1px solid black;
     box-sizing: border-box;
 }
 
@@ -179,27 +179,27 @@ body {
     width: 100%;
     margin-top: 10px;
     margin-bottom: 50px;
-    color: limegreen;
-    background-color: transparent;
-    border: 1px solid limegreen;
+    color: black;
+    background-color: limegreen;
+    border: 1px solid black;
     outline: none;
     transition: 0.3s;
 }
 
 .btn-submit:hover {
-    color: black;
-    background-color: limegreen;
+    color: white;
+    background-color: blue;
     transition: 0.3s;
 }
 
 .terminal {
     min-height: 72px;
-    border: 1px solid limegreen;
+    border: 1px solid black;
 }
 
 ::-webkit-scrollbar {
     width: 8px;
-    background-color: #0C0D16;
+    background-color: white;
 }
 
 ::-webkit-scrollbar-thumb {
