@@ -7,7 +7,7 @@ clazz:
 
 # isDateTime
       - id: FV1
-        name: isDateTime
+        name: isDateTimeValid
         desc: Checks if the date string input is valid date time.
         params: 
           - name: str
@@ -45,7 +45,7 @@ clazz:
 
 # isYear (int)
       - id: FV3
-        name: isYear
+        name: isYearValid
         desc: Checks if the number input is valid year
         params:
           - name: year
@@ -57,7 +57,7 @@ clazz:
           desc: Return true if the number input is valid year, else return false
 # isYear (string)
       - id: FV4
-        name: isYear
+        name: isYearValid
         desc: Checks if the string input is valid year
         params:
           - name: year
@@ -73,7 +73,7 @@ clazz:
 
 # isMonth (int)
       - id: FV5
-        name: isMonth
+        name: isMonthValid
         desc: Checks if the number input is valid month
         params:
           - name: month
@@ -85,7 +85,7 @@ clazz:
           desc: Return true if the number input is valid month, else return false
 # isMonth (string)
       - id: FV6
-        name: isMonth
+        name: isMonthValid
         desc: Checks if the string input is valid month
         params:
           - name: month
@@ -101,7 +101,7 @@ clazz:
 
 # isDay (int)
       - id: FV7
-        name: isDay
+        name: isDayValid
         desc: Checks if the number input is valid day
         params:
           - name: day
@@ -113,7 +113,7 @@ clazz:
           desc: Return true if the number input is valid day, else return false
 # isDay (string)
       - id: FV8
-        name: isDay
+        name: isDayValid
         desc: Checks if the string input is valid day
         params:
           - name: day
@@ -129,7 +129,7 @@ clazz:
           
 # isHours
       - id: FV9
-        name: isHours
+        name: isHourValid
         desc: Checks if the number input is valid hours
         params:
           - name: hour
@@ -144,7 +144,7 @@ clazz:
           desc: Return true if the string input is valid hours, else return false
 # isHours
       - id: FV10
-        name: isHours
+        name: isHourValid
         desc: Checks if the string input is valid hours
         params:
           - name: hour
@@ -163,7 +163,7 @@ clazz:
           
 # isMinutes
       - id: FV11
-        name: isMinutes
+        name: isMinuteValid
         desc: Checks if the number input is valid minutes
         params:
           - name: minute
@@ -175,7 +175,7 @@ clazz:
           desc: Return true if the string input is valid minutes, else return false
 # isMinutes
       - id: FV12
-        name: isMinutes
+        name: isMinuteValid
         desc: Checks if the string input is valid minutes
         params:
           - name: str
@@ -191,7 +191,7 @@ clazz:
           
 # isSeconds
       - id: FV13
-        name: isSeconds
+        name: isSecondValid
         desc: Checks if the number input is valid minutes
         params:
           - name: minute
@@ -203,7 +203,7 @@ clazz:
           desc: Return true if the string input is valid minutes, else return false
 # isSeconds
       - id: FV14
-        name: isSeconds
+        name: isSecondValid
         desc: Checks if the string input is valid seconds
         params:
           - name: str
@@ -216,4 +216,24 @@ clazz:
           value: null
           type: boolean
           desc: Return true if the string input is valid seconds, else return false
+
+
+# isFromLessOrEqualTo
+      - id: FV15
+        name: isFromLessOrEqualTo
+        desc: Checks if the date from is less than or equal to the date to
+        params:
+          - name: dateFrom
+            type: String
+            desc: The date from
+          - name: dateTo
+            type: String
+            desc: The date to
+          - name: pattern
+            type: String
+            desc: The pattern 
+        returns:
+          value: null
+          type: boolean
+          desc: Return true, if the date from is less than or equal to the date to, false if parameter input is invalid or the date from is greater than the date to.
           

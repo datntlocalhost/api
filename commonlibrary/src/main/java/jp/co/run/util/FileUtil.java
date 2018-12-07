@@ -1,79 +1,97 @@
 package jp.co.run.util;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class FileUtil {
 
     public static boolean exportCSV(String fileName, String extension, String encoding, List<String> header,
-        List<String> data) throws IOException {
+        List<? extends Object> data) throws IOException {
 
-        File file = new File(fileName);
+        boolean isSuccess = true;
 
-        if (file.exists()) {
-            return false;
+        PrintWriter printWriter = null;
+
+        BufferedWriter bufferedWriter = null;
+
+        try {
+
+            File file = new File(fileName);
+
+            printWriter = new PrintWriter(file, encoding);
+
+            bufferedWriter = new BufferedWriter(printWriter);
+
+            if (header != null && header.size() > 0) {
+
+                StringBuilder builder = new StringBuilder();
+
+                for (int i = 0; i < header.size(); i++) {
+                    if (i != (header.size() - 1)) {
+                        builder.append(header.get(i) + ",");
+                    } else {
+                        builder.append(header.get(i));
+                    }
+                }
+
+                bufferedWriter.write(builder.toString());
+                bufferedWriter.newLine();
+            }
+
+            if (data != null && data.size() > 0) {
+
+                Class<?> clazz = data.get(0).getClass();
+                List<String> getters = new ArrayList<String>();
+
+                for (Field field : clazz.getDeclaredFields()) {
+                    String fieldName = field.getName();
+                    getters.add("get" + fieldName.replace(fieldName.charAt(0), (char) (fieldName.charAt(0) - 32)));
+                }
+
+                for (Object object : data) {
+                    StringBuilder builder = new StringBuilder();
+                    
+                    for (String getter : getters) {
+                        try {
+
+                            Method method = clazz.getMethod(getter);
+
+                            if (method != null) {
+                                builder.append(method.invoke(object).toString() + ",");
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    
+                    bufferedWriter.write(builder.toString());
+                    bufferedWriter.newLine();
+                }
+            }
+        } catch (Exception e) {
+            isSuccess = false;
+        } finally {
+            try {
+
+                if (bufferedWriter != null) {
+                    bufferedWriter.close();
+                }
+
+                if (printWriter != null) {
+                    printWriter.close();
+                }
+
+            } catch (Exception e) {
+            }
         }
 
-        Charset charset = Charset.forName(encoding);
-
-        PrintWriter printWriter = new PrintWriter(file, charset.name());
-
-        BufferedWriter bufferedWriter = new BufferedWriter(printWriter);
-
-        for (String s : data) {
-            bufferedWriter.write(s);
-            bufferedWriter.newLine();
-        }
-
-        bufferedWriter.flush();
-        bufferedWriter.close();
-
-        return false;
-    }
-
-    public static boolean uploadFile(InputStream inputStream, String fileName, String parentFolder, boolean canOverride)
-        throws IOException {
-
-        if (inputStream == null || fileName == null || parentFolder == null) {
-            return false;
-        }
-
-        File file = new File(parentFolder, fileName);
-
-        if (!file.getParentFile().canWrite()) {
-            return false;
-        }
-
-        if (file.exists() && !canOverride) {
-            return false;
-        }
-
-        int read = 0;
-        byte[] bytes = new byte[1024];
-        
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
-        
-        return true;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        File file = new File("/home/datnguyen/Downloads/test.csv");
-        InputStream inputStream = new FileInputStream(file);
-
-        System.err.println(uploadFile(inputStream, "adasd", "/home/datnguyen/Downloads", true));
+        return isSuccess;
     }
 }

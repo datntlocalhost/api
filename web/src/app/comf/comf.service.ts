@@ -121,9 +121,9 @@ export class ComfService {
       return result;
     }
 
-    if (str.trim() === Constants.TRUE) {
+    if (str === Constants.TRUE) {
       result = true;
-    } else if (str.trim() === Constants.FALSE) {
+    } else if (str === Constants.FALSE) {
       result = false;
     }
     return result;
@@ -132,11 +132,21 @@ export class ComfService {
   stringToNumber(str: string, isArray: boolean) {
     const result = null;
 
+    const regex = /^[\u0020\u3000]*$/;
+
     if (isNullOrUndefined(str)) {
       return result;
     }
 
     if (isNaN(+str.trim())) {
+      return result;
+    }
+
+    if (str.search(regex) === 0) {
+      return result;
+    }
+
+    if (str.indexOf('\u0020') !== -1 || str.indexOf('\u3000') !== -1) {
       return result;
     }
 

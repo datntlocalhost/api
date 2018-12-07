@@ -4,8 +4,7 @@ import jp.co.run.enums.MultiByte;
 import jp.co.run.util.StringUtil;
 
 /**
- * The {@code StringValidation} class provides several methods for checking 
- * validation of string input.
+ * The {@code StringValidation} class provides several methods for checking validation of string input.
  * 
  * @author datnguyen
  */
@@ -15,37 +14,51 @@ public final class StringValidation {
      * Check if the string input is null.
      *
      * @author datnguyen
-     * @param  str the string input want to check.
+     * @param str the string input want to check.
      * @return true if the string input is null, else return false.
      */
     public static boolean isNull(String str) {
         return str == null;
     }
-    
+
+    /**
+     * Checks if the string input is empty (the length = 0).
+     * 
+     * @author datnguyen
+     * @param str the string want to check.
+     * @return true if the string input is empty.
+     */
     public static boolean isEmpty(String str) {
-        
-        String regex = "^[\\]+$";
+
         if (str == null) {
             return false;
         }
-        
-        return str.matches(regex);
+
+        return str.length() == 0;
     }
-    
+
+    /**
+     * Checks if the string input is empty (whitespace).
+     * 
+     * @author datnguyen
+     * @param str the string want to check.
+     * @return true if the string input is empty.
+     */
     public static boolean isEmptyWithoutBlank(String str) {
-        String regex = "";
-        
+
+        String regex = "^[\\u0020\\u3000]*$";
+
         if (str == null) {
             return false;
         }
-        
-        
+
+        return str.matches(regex);
     }
 
     /**
      * Checks if the string input is null or empty.
      *
-     * @param  str the string input want to check
+     * @param str the string input want to check
      * @return true, if the string input is null or empty
      */
     public static boolean isNullOrEmpty(String str) {
@@ -56,7 +69,7 @@ public final class StringValidation {
      * Checks if array of the strings input is null or empty.
      * 
      * @author datnguyen
-     * @param  strs array of string want to check
+     * @param strs array of string want to check
      * @return true, if if have one or more element of string array is null or empty, else return false.
      */
     public static boolean isNullOrEmpty(String... strs) {
@@ -78,7 +91,7 @@ public final class StringValidation {
      * Check if the string input is blank (single-byte or double-byte whitespace).
      * 
      * @author datnguyen
-     * @param  str the string input want to check.
+     * @param str the string input want to check.
      * @return true if the string input is blank (whitespace), else return false.
      */
     public static boolean isBlank(String str) {
@@ -91,8 +104,8 @@ public final class StringValidation {
      * Checks if the string input is max length.
      *
      * @author datnguyen
-     * @param  str the string input want to check.
-     * @param  maxLength the max length
+     * @param str the string input want to check.
+     * @param maxLength the max length
      * @return true, if length of the string input is less than or equal to maxLength, else return false
      */
     public static boolean isMaxLengthValid(String str, int maxLength) {
@@ -108,8 +121,8 @@ public final class StringValidation {
      * Checks if the string input is min length.
      *
      * @author datnguyen
-     * @param  str the string input want to check.
-     * @param  minLength the min length
+     * @param str the string input want to check.
+     * @param minLength the min length
      * @return true, if the string input is min length
      */
     public static boolean isMinLengthValid(String str, int minLength) {
@@ -125,7 +138,7 @@ public final class StringValidation {
      * Checks if the string is single-byte character only.
      *
      * @author datnguyen
-     * @param  str the str
+     * @param str the str
      * @return true, if the string input is is just contain single-byte character, else return false
      */
     public static boolean isByteCharacterOnly(String str) {
@@ -133,21 +146,44 @@ public final class StringValidation {
     }
 
     /**
-     * Checks if the string input is just contain double-byte character.
+     * Checks if the string input is just contain double-byte, three-byte or four-byte character.
      *
      * @author datnguyen
-     * @param  str the string want to check
-     * @return true, if the string input is is just contain double-byte character, else return false
+     * @param str the string want to check
+     * @return true, if the string input is is just contain double-byte, three-byte or four-byte character, else return
+     *         false
      */
     public static boolean isTwoByteCharacterOnly(String str) {
-        return checkMultiByteCharacterString(str, MultiByte.DOUBLE);
+
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        byte[] bytes = str.getBytes();
+
+        for (int i = 0; i < bytes.length;) {
+
+            int hightByte = ((bytes[i] & 0x000000FF) >> 4);
+
+            if (hightByte == 0xC) {
+                i += MultiByte.DOUBLE.getNumOfByte();
+            } else if (hightByte == 0xE) {
+                i += MultiByte.THREE.getNumOfByte();
+            } else if (hightByte == 0xF) {
+                i += MultiByte.FOUR.getNumOfByte();
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
      * Checks if the string input is just contain three-byte character.
      *
      * @author datnguyen
-     * @param  str the string input want to check
+     * @param str the string input want to check
      * @return true, if the string input is is just contain three-byte character, else return false
      */
     public static boolean isThreeByteCharacterOnly(String str) {
@@ -158,41 +194,44 @@ public final class StringValidation {
      * Checks if the string input is just contain four-byte character.
      *
      * @author datnguyen
-     * @param  str the string input want to check
+     * @param str the string input want to check
      * @return true, if the string input is is just contain four-byte character, else return false
      */
     public static boolean isFourByteCharacterOnly(String str) {
         return checkMultiByteCharacterString(str, MultiByte.FOUR);
     }
 
-//    /**
-//     * Checks if is not special character.
-//     *
-//     * @param str the str
-//     * @param pattern the pattern
-//     * @return true, if is not special character
-//     */
-//    public static boolean isNotSpecialCharacter(String str, String pattern) {
-//
-//        if (isNull(str) || isNull(pattern)) {
-//            return false;
-//        }
-//
-//        String regex = StringUtil.stringToRegex("", str, true);
-//
-//        if (isNullOrEmpty(regex)) {
-//            return false;
-//        }
-//
-//        return str.matches(regex);
-//    }
+    /**
+     * Checks if is not special character.
+     *
+     * @param str the str
+     * @param pattern the pattern
+     * @return true, if is not special character
+     */
+    public static boolean isNotSpecialCharacter(String str, String pattern) {
+
+        if (isNull(str) || isNull(pattern)) {
+            return false;
+        }
+
+        String regex = StringUtil
+            .stringToRegex("[^\\u0021-\\u002F\\u003A-\\u0040\\u005B-\\u0060\\u007B-\\u007E\\u00A1-\\u00BF"
+                + "\\uFF01-\\uFF0F\\uFF1A-\\uFF20\\uFF3B-\\uFF40\\uFF5B-\\uFF5E" + "\\u300C\\u300D\\u201D\\u2019"
+                + "\\uFFE5\\u3001\\u3002\\u30FB]+", pattern, true);
+
+        if (isNullOrEmpty(regex)) {
+            return false;
+        }
+
+        return str.matches(regex);
+    }
 
     /**
      * Check multi byte character string.
      *
      * @author datnguyen
-     * @param  str the str
-     * @param  type the type
+     * @param str the str
+     * @param type the type
      * @return true, if successful
      */
     public static boolean checkMultiByteCharacterString(String str, MultiByte type) {
@@ -215,11 +254,9 @@ public final class StringValidation {
     /**
      * Checks if the string input is just contain hiragana character.
      *
-     * @param  str the string want to check.
-     * @param  pattern the pattern contain symbol and character can put 
-     *         in the string input.
-     * @return true, if the string input is just contain hiragana character and 
-     *         symbol, character in pattern.
+     * @param str the string want to check.
+     * @param pattern the pattern contain symbol and character can put in the string input.
+     * @return true, if the string input is just contain hiragana character and symbol, character in pattern.
      */
     public static boolean isHiragana(String str, String pattern) {
 
@@ -235,8 +272,8 @@ public final class StringValidation {
     /**
      * Checks if is kanji.
      *
-     * @param  str the str
-     * @param  pattern the pattern
+     * @param str the str
+     * @param pattern the pattern
      * @return true, if is kanji
      */
     public static boolean isKanji(String str, String pattern) {
@@ -253,9 +290,8 @@ public final class StringValidation {
     /**
      * Checks if is katakana.
      *
-     * @param  str the string want to check
-     * @param  pattern the pattern string contain some symbol or character that 
-     *         can put into the string input
+     * @param str the string want to check
+     * @param pattern the pattern string contain some symbol or character that can put into the string input
      * @return true, if is katakana
      */
     public static boolean isKatakana(String str, String pattern) {
@@ -272,19 +308,17 @@ public final class StringValidation {
     /**
      * Checks if is checks for blank valid.
      *
-     * @param  str the str
-     * @param  multiByte the multi byte, set true if want to check double-byte 
-     *         whitespace character within string input
-     * @return true, if if there are blank (whitespace) within string input,
-     *         else return false
+     * @param str the str
+     * @param multiByte the multi byte, set true if want to check double-byte whitespace character within string input
+     * @return true, if if there are blank (whitespace) within string input, else return false
      */
-    public static boolean isHasBlank(String str, boolean multiByte) {
+    public static boolean isHasBlankValid(String str, boolean multiByte) {
 
         if (isNull(str)) {
             return false;
         }
 
-        String regex = multiByte ? "^[^\\u0020\\u3000]*$" : "^[^\\u0020]*$";
+        String regex = multiByte ? "^[^\\u3000]*$" : "^[^\\u0020]*$";
 
         return !str.matches(regex);
     }
@@ -292,11 +326,11 @@ public final class StringValidation {
     /**
      * Checks if is checks for first blank valid.
      *
-     * @param  str the str
-     * @param  multiByte the multi byte
+     * @param str the str
+     * @param multiByte the multi byte
      * @return true, if is checks for first blank valid
      */
-    public static boolean isHasFirstBlank(String str, boolean multiByte) {
+    public static boolean isHasFirstBlankValid(String str, boolean multiByte) {
 
         if (isNullOrEmpty(str)) {
             return false;
@@ -304,17 +338,17 @@ public final class StringValidation {
 
         char firstChar = str.charAt(0);
 
-        return multiByte ? firstChar == 0x20 || firstChar == 0x3000 : firstChar == 0x20;
+        return multiByte ? firstChar == 0x3000 : firstChar == 0x20;
     }
 
     /**
      * Checks if is checks for last blank valid.
      *
-     * @param  str the str
-     * @param  multiByte the multi byte
+     * @param str the str
+     * @param multiByte the multi byte
      * @return true, if is checks for last blank valid
      */
-    public static boolean isHasLastBlank(String str, boolean multiByte) {
+    public static boolean isHasLastBlankValid(String str, boolean multiByte) {
 
         if (isNullOrEmpty(str)) {
             return false;
@@ -322,15 +356,15 @@ public final class StringValidation {
 
         char lastChar = str.charAt(str.length() - 1);
 
-        return multiByte ? lastChar == 0x20 || lastChar == 0x3000 : lastChar == 0x20;
+        return multiByte ? lastChar == 0x3000 : lastChar == 0x20;
     }
 
     /**
      * Checks if the string input is valid email format.
      *
      * @author datnguyen
-     * @param  str the string want to check
-     * @param  pattern the pattern contain symbol or character can put in local-part
+     * @param str the string want to check
+     * @param pattern the pattern contain symbol or character can put in local-part
      * @return true, if the string input is valid email format
      */
     public static boolean isEmailValid(String str, String pattern) {
@@ -340,8 +374,28 @@ public final class StringValidation {
         }
 
         String defaultRegex = "^[%sa-zA-Z0-9]+@[\\-a-zA-Z0-9]+((\\.)[a-zA-Z]+)+$".replaceAll("%s",
-            pattern != null ? pattern : "");
+            pattern != null ? StringUtil.stringToHex(pattern) : "");
 
         return str.matches(defaultRegex);
+    }
+
+    /**
+     * Checks if the string input is alphabet character (single-byte).
+     * 
+     * @author datnguyen
+     * @param str the string input want to check.
+     * @param pattern the pattern contain symble can put in the string input.
+     * @param isAlphanumeric set true if the string input have numeric character.
+     * @return true if the string input is alphabet character.
+     */
+    public static boolean isAlphabetCharacter(String str, String pattern, boolean isAlphanumeric) {
+
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        String regex = StringUtil.stringToRegex(isAlphanumeric ? "a-zA-Z0-9" : "a-zA-Z", pattern, true);
+
+        return str.matches(regex);
     }
 }

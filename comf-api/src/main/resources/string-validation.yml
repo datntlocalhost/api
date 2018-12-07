@@ -28,6 +28,32 @@ clazz:
           value: null
           type: boolean
           desc: Return true if the string input is null or empty, else return false
+
+# isEmpty
+      - id: FV1.1.1
+        name: isEmpty
+        desc: Checks if the string input is empty (the length of string equal zero).
+        params:
+          - name: str
+            type: String
+            desc: The string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is null, else return false.
+
+# isEmptyWithoutBlank
+      - id: FV1.1.2
+        name: isEmptyWithoutBlank
+        desc: Checks if the string input is empty (whitespace character).
+        params:
+          - name: str
+            type: String
+            desc: The string want to check.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is null, else return false.
           
 # isBlank
       - id: FV2
@@ -44,7 +70,7 @@ clazz:
 
 # isMaxLength
       - id: FV3
-        name: isMaxLength
+        name: isMaxLengthValid
         desc: Checks if the string input is max length
         params:
           - name: str
@@ -60,7 +86,7 @@ clazz:
 
 # isMinLength
       - id: FV4
-        name: isMinLength
+        name: isMinLengthValid
         desc: Checks if the string input is min length
         params:
           - name: str
@@ -89,7 +115,7 @@ clazz:
 # isTwoByteCharacterOnly
       - id: FV6
         name: isTwoByteCharacterOnly
-        desc: Checks if the string input is just contain double-byte character
+        desc: Checks if the string input is just contain double-byte, three-byte or four-byte character
         params:
           - name: str
             type: String
@@ -97,31 +123,47 @@ clazz:
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is just contain double-byte character, else return false
-# isThreeByteCharacterOnly
-      - id: FV7
-        name: isThreeByteCharacterOnly
-        desc: Checks if the string input is just contain three-byte character
+          desc: Return true if the string input is just contain double-byte, three-byte or four-byte character, else return false
+# # isThreeByteCharacterOnly
+#       - id: FV7 
+#         name: isThreeByteCharacterOnly
+#         desc: Checks if the string input is just contain three-byte character
+#         params:
+#           - name: str
+#             type: String
+#             desc: The string want to check
+#         returns:
+#           value: null
+#           type: boolean
+#           desc: Return true if the string input is just contain three-byte character, else return false
+# # isFourByteCharacterOnly
+#       - id: FV8
+#         name: isFourByteCharacterOnly
+#         desc: Checks if the string input is just contain four-byte character
+#         params:
+#           - name: str
+#             type: String
+#             desc: The string want to check
+#         returns:
+#           value: null
+#           type: boolean
+#           desc: Return true if the string input is just contain four-byte character, else return false
+
+# isNotSpecialCharacter
+      - id: FV3.1
+        name: isNotSpecialCharacter
+        desc: Checks if the string input is not special character.
         params:
           - name: str
             type: String
             desc: The string want to check
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is just contain three-byte character, else return false
-# isFourByteCharacterOnly
-      - id: FV8
-        name: isFourByteCharacterOnly
-        desc: Checks if the string input is just contain four-byte character
-        params:
-          - name: str
+          - name: pattern
             type: String
-            desc: The string want to check
+            desc: The pattern that contain character or symbol can put in string input.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is just contain four-byte character, else return false
+          desc: Return true if length of the string input is not special character, else return false
 
 # isKatakana
       - id: FV14
@@ -173,7 +215,7 @@ clazz:
           
 # isHasBlank
       - id: FV41
-        name: isHasBlank
+        name: isHasBlankValid
         desc: Checks if the string input has blank (whitespace) character
         params:
           - name: str
@@ -189,7 +231,7 @@ clazz:
 
 # isHasFirstBlank
       - id: FV42
-        name: isHasFirstBlank
+        name: isHasFirstBlankValid
         desc: Checks if the string input has blank (whitespace) at first character
         params:
           - name: str
@@ -205,7 +247,7 @@ clazz:
 
 # isHasLastBlank
       - id: FV43
-        name: isHasLastBlank
+        name: isHasLastBlankValid
         desc: Checks if the string input has blank (whitespace) at last character
         params:
           - name: str
@@ -218,6 +260,40 @@ clazz:
           value: null
           type: boolean
           desc: Return true if has blank (whitespace) character at last character of the string input, else return fasle
+# isEmailValid
+      - id: FV44
+        name: isEmailValid
+        desc: Checks if email is valid format
+        params:
+          - name: str
+            type: String
+            desc: The string want to check
+          - name: pattern
+            type: String
+            desc: The pattern contain symbol or character can put in local part
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if email input is valid, else return fasle
+
+# isAlphabetCharacter
+      - id: FV45
+        name: isAlphabetCharacter
+        desc: Checks if the string input is alphabet character (single-byte).
+        params:
+          - name: str
+            type: String
+            desc: The string want to check.
+          - name: pattern
+            type: String
+            desc: The pattern contain symbol or character can put in local part.
+          - name: isAlphanumeric
+            type: boolean 
+            desc: Set true if the string input that contain numeric character.
+        returns:
+          value: null
+          type: boolean
+          desc: Return true if the string input is alphabet character, else return fasle
 #      - id: string2
 #        name:
 #        desc:

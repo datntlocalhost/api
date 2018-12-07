@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
@@ -49,10 +50,11 @@ public class Util {
         return false;
     }
 
-    public static boolean resizeImageByResolution(InputStream originalImg, String outputFileName, String extension, int width,
-        int height) {
+    public static boolean resizeImageByResolution(InputStream originalImg, String outputFileName, String extension,
+        int width, int height) {
 
-        if (StringValidation.isNullOrEmpty(outputFileName, extension) || originalImg == null || width < 0 || height < 0) {
+        if (StringValidation.isNullOrEmpty(outputFileName, extension) || originalImg == null || width < 0
+            || height < 0) {
             return false;
         }
 
@@ -69,7 +71,7 @@ public class Util {
             graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics2d.drawImage(image, 0, 0, width, height, null);
             graphics2d.dispose();
-
+            
             ImageIO.write(resizeImage, extension, new File(outputFileName));
 
         } catch (Exception e) {
@@ -77,5 +79,36 @@ public class Util {
         }
 
         return true;
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        long fileSize = 1048576;
+
+        File file = new File("/home/datnguyen/Downloads/download.jpeg");
+
+        InputStream inputStream = new FileInputStream(file);
+
+        int oldSize = inputStream.available();
+        
+        BufferedImage bufferedImage = ImageIO.read(inputStream);
+
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        float bitDepth = (float) ((float) oldSize * 8 / (width * height));
+        
+        float per = (float) (width * 1.0 / height);
+
+        double toltal = (fileSize * 8) * 1.0 / bitDepth;
+
+        int newHeight = (int) Math.sqrt(toltal);
+        int newWidth = (int) (per * newHeight);
+        
+        inputStream = new FileInputStream(file);
+        
+        resizeImageByResolution(inputStream, "/home/datnguyen/Downloads/test.jpeg", "jpeg", newWidth, newHeight);
+
+        bufferedImage.flush();
+        inputStream.close();
     }
 }

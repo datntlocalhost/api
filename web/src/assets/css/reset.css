@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+/*================================================================
+global reset
+================================================================*/
+*,::before,::after {
+	position: relative;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+
+::before,::after {
+  text-decoration: inherit;
+  vertical-align: inherit;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary {
+  display: block;
+}
+
+small {
+  font-size: 80%;
+}
+
+[hidden],template {
+  display: none;
+}
+
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+a:active,a:hover {
+  outline-width: 0;
+}
+
+b,strong {
+  font-weight: bolder;
+}
+
+button,[type="button"],[type="reset"],[type="submit"],[role="button"] {
+  cursor: pointer;
+}
+
+input::-ms-clear {
+	visibility:hidden
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type="number"] {
+	-moz-appearance:textfield;
+}
+
+[disabled] {
+  cursor: default;
+}
+
+button,input,optgroup,select,textarea {
+  font: inherit;
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+button {
+  overflow: visible;
+}
+
+input, button, textarea, select{
+	outline: 0;
+	border: 0px;
+  color: inherit;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+button{
+	background: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+img {
+  border-style: none;
+}
+
+::-moz-selection,::selection {
+  background-color: #b3d4fc;
+  color: #000;
+  text-shadow: none;
+}
+
+ul,ol {
+  list-style: none;
+}
+
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}

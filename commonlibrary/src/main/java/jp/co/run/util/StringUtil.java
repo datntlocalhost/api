@@ -23,7 +23,7 @@ public class StringUtil {
 
         StringBuilder builder = new StringBuilder();
 
-        if (StringValidation.isNullOrEmpty(extendRegex)) {
+        if (StringValidation.isNull(extendRegex)) {
             return builder.toString();
         }
 
@@ -37,6 +37,30 @@ public class StringUtil {
 
         builder.append("]*$");
 
+        return builder.toString();
+    }
+    
+    /**
+     * Convert the characters within the string input to hex.
+     * 
+     *  @author datnguyen
+     *  @param str the string input.
+     *  @return the string hex.
+     */
+    public static String stringToHex(String str) {
+        
+        StringBuilder builder = new StringBuilder();
+        
+        if (str == null || str.length() == 0) {
+            return builder.toString();
+        }
+        
+        char[] charArray = str.toCharArray();
+        
+        for (char c : charArray) {
+            builder.append("\\\\x{" + Integer.toHexString(c) + "}");
+        }
+        
         return builder.toString();
     }
 
