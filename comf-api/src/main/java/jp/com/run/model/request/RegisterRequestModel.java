@@ -1,11 +1,11 @@
 package jp.com.run.model.request;
 
-import jp.com.run.validations.Email;
-import jp.com.run.validations.Kanji;
-import jp.com.run.validations.Length;
-import jp.com.run.validations.MaxLength;
-import jp.com.run.validations.NotNull;
-import jp.com.run.validations.Password;
+import jp.co.run.validation.annotation.Email;
+import jp.co.run.validation.annotation.Kanji;
+import jp.co.run.validation.annotation.Length;
+import jp.co.run.validation.annotation.MaxLength;
+import jp.co.run.validation.annotation.NotNull;
+import jp.co.run.validation.annotation.Password;
 
 public class RegisterRequestModel {
 

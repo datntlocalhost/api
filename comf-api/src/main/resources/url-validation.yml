@@ -1,0 +1,21 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+# jp.co.run.validation.StringValidation
+  - name: jp.co.run.validation.URLValidation
+    desc: url validation
+    methods:
+# isURLFormat
+      - id: FV1
+        name: isURLFormat
+        desc: Cho phép kiểm tra url có đúng dạng format hay không.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi url cần nhập để kiểm tra.
+          - name: pattern
+            type: String
+            desc: Chuổi pattern chứa chuỗi prefix mong muốn, phân cách bởi dấu "|". Bắt buộc phải nhập, nếu ko nhập thì mặc định trả về false. 
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu chuỗi nhập đúng với định dạng url, ngược lại trả về false nếu chuỗi nhập và pattern là NULL hoặc EMPTY hoặc không đúng với định dạng URL.

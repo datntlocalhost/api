@@ -1,6 +1,5 @@
 package jp.co.run.util;
 
-import jp.co.run.enums.MultiByte;
 import jp.co.run.validation.StringValidation;
 
 /**
@@ -13,7 +12,6 @@ public class StringUtil {
     /**
      * String to regex.
      *
-     * @author datnguyen
      * @param originalRegex the original regex
      * @param extendRegex the extend regex
      * @param isInclude the is include
@@ -39,41 +37,39 @@ public class StringUtil {
 
         return builder.toString();
     }
-    
+
     /**
      * Convert the characters within the string input to hex.
      * 
-     *  @author datnguyen
-     *  @param str the string input.
-     *  @return the string hex.
+     * @param str the string input.
+     * @return the string hex.
      */
     public static String stringToHex(String str) {
-        
+
         StringBuilder builder = new StringBuilder();
-        
-        if (str == null || str.length() == 0) {
+
+        if (StringValidation.isNullOrEmpty(str)) {
             return builder.toString();
         }
-        
+
         char[] charArray = str.toCharArray();
-        
+
         for (char c : charArray) {
             builder.append("\\\\x{" + Integer.toHexString(c) + "}");
         }
-        
+
         return builder.toString();
     }
 
     /**
-     * Returns length byte of the string input.
+     * Returns total byte of the string input.
      * 
-     * @author datnguyen
      * @param str the string
-     * @return length of byte of the string input.
+     * @return total byte of the string input.
      */
-    public static int countByteOfString(String str) {
+    public static int countByte(String str) {
 
-        if (str == null) {
+        if (StringValidation.isNullOrEmpty(str)) {
             return 0;
         }
 
@@ -83,31 +79,29 @@ public class StringUtil {
     }
 
     /**
-     * Count characters of the string input.
+     * Count total characters of the string input.
      * 
      * @param str the string
-     * @return the long, return number character of the string, -1 if the string input is null
+     * @return the long, return total character of the string, -1 if the string input is null
      */
-    public static int countCharacters(String str) {
+    public static int countCharacterMultiByte(String str) {
 
-        if (StringValidation.isNull(str)) {
+        if (str == null) {
             return -1;
         }
 
         int count = 0;
-
+        int index = 0;
         byte[] bytes = str.getBytes();
 
-        for (int i = 0; i < bytes.length;) {
-            int byteCompare = (bytes[i] & 0x000000FF) >> 4;
-            if (byteCompare == 0xF) {
-                i += MultiByte.FOUR.getNumOfByte();
-            } else if (byteCompare == 0xE) {
-                i += MultiByte.THREE.getNumOfByte();
-            } else if (byteCompare == 0xC) {
-                i += MultiByte.DOUBLE.getNumOfByte();
+        while (index < bytes.length) {
+            int leadBitss = (bytes[index] & 0x000000FF) >> 4;
+            if (leadBitss >= 0xC) {
+                int numBitOne = (leadBitss & 1) + ((leadBitss >> 1) & 1) + ((leadBitss >> 2) & 1)
+                    + ((leadBitss >> 3) & 1);
+                index += numBitOne;
             } else {
-                i += MultiByte.SINGLE.getNumOfByte();
+                index += 1;
             }
             count += 1;
         }
@@ -118,30 +112,26 @@ public class StringUtil {
     /**
      * Returns number single-byte character within the string input.
      * 
-     * @author datnguyen
      * @param str the string input.
      * @return number of single-byte character, return -1 if the string input is null.
      */
-    public static int countSingleByteCharacters(String str) {
+    public static int countCharacter1Byte(String str) {
 
-        if (StringValidation.isNull(str)) {
+        if (str == null) {
             return -1;
         }
 
         int count = 0;
-
+        int index = 0;
         byte[] bytes = str.getBytes();
 
-        for (int i = 0; i < bytes.length;) {
-            int byteCompare = (bytes[i] & 0x000000FF) >> 4;
-            if (byteCompare == 0xF) {
-                i += MultiByte.FOUR.getNumOfByte();
-            } else if (byteCompare == 0xE) {
-                i += MultiByte.THREE.getNumOfByte();
-            } else if (byteCompare == 0xC) {
-                i += MultiByte.DOUBLE.getNumOfByte();
+        while (index < bytes.length) {
+            int leadBits = (bytes[index] & 0x000000FF) >> 4;
+            if (leadBits >= 0xC) {
+                int numBitOne = (leadBits & 1) + ((leadBits >> 1) & 1) + ((leadBits >> 2) & 1) + ((leadBits >> 3) & 1);
+                index += numBitOne;
             } else {
-                i += MultiByte.SINGLE.getNumOfByte();
+                index += 1;
                 count += 1;
             }
         }
@@ -152,44 +142,45 @@ public class StringUtil {
     /**
      * Returns number multi-byte character (double, three or four byte) within the string input.
      * 
-     * @author datnguyen
      * @param str the string input.
      * @return number of single-byte character, return -1 if the string input is null.
      */
-    public static int countMultiByteCharacters(String str) {
+    public static int countCharacterNon1Byte(String str) {
 
-        if (StringValidation.isNull(str)) {
+        if (str == null) {
             return -1;
         }
 
         int count = 0;
-
+        int index = 0;
         byte[] bytes = str.getBytes();
 
-        for (int i = 0; i < bytes.length;) {
-            int byteCompare = (bytes[i] & 0x000000FF) >> 4;
-            if (byteCompare == 0xF) {
-                i += MultiByte.FOUR.getNumOfByte();
-                count += 1;
-            } else if (byteCompare == 0xE) {
-                i += MultiByte.THREE.getNumOfByte();
-                count += 1;
-            } else if (byteCompare == 0xC) {
-                i += MultiByte.DOUBLE.getNumOfByte();
+        while (index < bytes.length) {
+            int leadBits = (bytes[index] & 0x000000FF) >> 4;
+            if (leadBits >= 0xC) {
+
+                int numBitOne = (leadBits & 1) + ((leadBits >> 1) & 1) + ((leadBits >> 2) & 1) + ((leadBits >> 3) & 1);
+                index += numBitOne;
                 count += 1;
             } else {
-                i += MultiByte.SINGLE.getNumOfByte();
+                index += 1;
             }
         }
 
         return count;
     }
 
+    /**
+     * Converts hiragana string to katakana string.
+     * 
+     * @param str the hiragana string.
+     * @return the katakana string.
+     */
     public static String convertHiraToKata(String str) {
 
         StringBuilder builder = new StringBuilder();
 
-        if (str == null) {
+        if (StringValidation.isNullOrEmpty(str)) {
             return builder.toString();
         }
 
@@ -197,7 +188,7 @@ public class StringUtil {
 
         for (char c : charArray) {
 
-            if (c >= 0x3040 && c <= 0x309F) {
+            if (c >= 0x3041 && c <= 0x3093) {
                 builder.append((char) (c + 96));
             } else {
                 builder.append(c);
@@ -207,11 +198,17 @@ public class StringUtil {
         return builder.toString();
     }
 
+    /**
+     * Convert katakana string to hiragana string.
+     * 
+     * @param str the katakana string.
+     * @return the hiragana string.
+     */
     public static String convertKataToHira(String str) {
 
         StringBuilder builder = new StringBuilder();
 
-        if (str == null) {
+        if (StringValidation.isNullOrEmpty(str)) {
             return builder.toString();
         }
 
@@ -219,7 +216,7 @@ public class StringUtil {
 
         for (char c : charArray) {
 
-            if (c >= 0x30A0 && c <= 0x30FF) {
+            if (c >= 0x30A1 && c <= 0x30F3) {
                 builder.append((char) (c - 96));
             } else {
                 builder.append(c);

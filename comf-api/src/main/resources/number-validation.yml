@@ -5,48 +5,37 @@ clazz:
     desc: date validation
     methods:
       - id: FV1
-        name: isNumber
-        desc: Checks if the string input is number format
+        name: isTwoByteNumber
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là số full-width hay không. Định dạng số full-width hợp lệ như １２３４, ＋１２３４．０, －１２３．４, １２３．４ｅ５, １２３．４ｅ＋５, １２３．４ｅ－５...
         params:
           - name: str
             type: String
-            desc: The string want to check
-          - name: hasDoubleByteNumber
-            type: boolean
-            desc: Set true if want to check with the string input contain double-byte character
+            desc: Chuỗi nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is number format, else return false
+          desc: Trả vể true nếu chuỗi đã nhập là định dạng số full-width.
 
-# isIntegerNumber
       - id: FV2
         name: isIntegerNumber
-        desc: Checks if the string input is integer number format
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là số nguyên hay không. Chuỗi đã nhập phải là ký tự một byte. Số nguyên có phạm vi từ -2147483648 -> 2147483647
         params:
           - name: str
             type: String
-            desc: The string want to check
-          - name: hasDoubleByteNumber
-            type: boolean
-            desc: Set true if want to check with the string input contain double-byte character
+            desc: Chuỗi cần nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is integer number format, else return false
+          desc: Trả về true nếu chuỗi đã nhập là định dạng số nguyên, ngược lại trả về false.
 
-# isFloatNumber
       - id: FV3
         name: isFloatNumber
-        desc: Checks if the string input is float number format
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là số thực hay không. Chuỗi đã nhập phải là ký tự một byte. Số thực có phạm vi từ 1.4E-45 -> 3.4028235E38 và bặt buộc phải là định đạng number.number
         params:
           - name: str
             type: String
-            desc: The string want to check
-          - name: hasDoubleByteNumber
-            type: boolean
-            desc: Set true if want to check with the string input contain double-byte character
+            desc: Chuỗi cần nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is float number format, else return false
+          desc: Trả về true nếu chuỗi đã nhập là định dạng số thực, ngược lại trả về false.

@@ -1,10 +1,10 @@
 package jp.com.run.model.request;
 
-import jp.com.run.validations.Email;
-import jp.com.run.validations.Hiragana;
-import jp.com.run.validations.Katakana;
-import jp.com.run.validations.MaxLength;
-import jp.com.run.validations.NotNull;
+import jp.co.run.validation.annotation.Email;
+import jp.co.run.validation.annotation.Hiragana;
+import jp.co.run.validation.annotation.Katakana;
+import jp.co.run.validation.annotation.MaxLength;
+import jp.co.run.validation.annotation.NotNull;
 
 /**
  * The Class InquiryRequestModel.

@@ -23,7 +23,8 @@ import jp.com.run.util.YamlUtil;
 public class MethodManager {
 
     /** The Constant YAML_FILE_NAME. */
-    private static final String[] YAML_FILE_NAME = {"string-validation.yml", "date-validation.yml", "number-validation.yml"};
+    private static final String[] YAML_FILE_NAME = {"string-validation.yml", "date-validation.yml", "number-validation.yml",
+                                                    "url-validation.yml", "date-util.yml","string-util.yml"};
 
     /** The Constant JAR_FILE_NAME. */
     private static final String JAR_FILE_NAME = "ValidationCommon.jar";

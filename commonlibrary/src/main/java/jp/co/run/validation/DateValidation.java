@@ -17,14 +17,16 @@ public final class DateValidation {
     /**
      * Checks if the string input is valid date time format
      *
-     * @author datnguyen
      * @param str the string input want to check
      * @param pattern the pattern
      * @return true, if the string input is valid date time format
      */
     public static boolean isDateTimeValid(String str, String pattern) {
 
-        if (StringValidation.isNullOrEmpty(str, pattern) || str.length() != pattern.length()) {
+        if (StringValidation.isNullOrEmpty(str, pattern) ||
+            str.length() != pattern.length() ||
+            !StringValidation.isOneByteCharacterOnly(str) ||
+            !StringValidation.isOneByteCharacterOnly(pattern)) {
             return false;
         }
 
@@ -42,7 +44,6 @@ public final class DateValidation {
     /**
      * Checks if the date input is between the given date range.
      * 
-     * @author datnguyen
      * @param date the date want to check.
      * @param minDate the min date.
      * @param maxDate the max date.
@@ -61,7 +62,6 @@ public final class DateValidation {
     /**
      * Checks if the date input is between the given date range
      * 
-     * @author datnguyen
      * @param dateStr the date string input want to check
      * @param minDateStr the min date string
      * @param maxDateStr the max date string
@@ -86,23 +86,22 @@ public final class DateValidation {
     /**
      * Checks if the date from is less than or equal to the date to.
      *
-     * @author datnguyen
      * @param dateFrom the date from
      * @param dateTo the date to
-     * @param pattern the pattern
+     * @param format the format
      * @return true, if the date from is less than or equal to the date to, false if parameter input is invalid or the
      *         date from is greater than the date to
      */
-    public static boolean isFromLessOrEqualTo(String dateFrom, String dateTo, String pattern) {
+    public static boolean isFromLessOrEqualTo(String dateFrom, String dateTo, boolean isEqual, String format) {
 
-        if (!isDateTimeValid(dateFrom, pattern) || !isDateTimeValid(dateTo, pattern)) {
+        if (!isDateTimeValid(dateFrom, format) || !isDateTimeValid(dateTo, format)) {
             return false;
         }
 
-        Date from = DateUtil.parseDate(dateFrom, pattern);
-        Date to = DateUtil.parseDate(dateTo, pattern);
+        Date from = DateUtil.parseDate(dateFrom, format);
+        Date to = DateUtil.parseDate(dateTo, format);
 
-        return from != null && to != null && from.getTime() <= to.getTime();
+        return from != null && to != null && (isEqual ? from.getTime() <= to.getTime() : from.getTime() < to.getTime());
     }
 
     /**
@@ -111,7 +110,6 @@ public final class DateValidation {
      * <p>
      * The {@code year} just between 0 to 9999
      * 
-     * @author datnguyen
      * @param year the year
      * @return true, if the year is larger than zero and less than 10000
      */
@@ -127,15 +125,21 @@ public final class DateValidation {
      * <p>
      * The value of the argument str can be double-byte character
      *
-     * @author datnguyen
      * @param year the string input want to check
      * @param hasDoubleByteChar true if the string input have double-byte character
      * @return true, if the string input is valid year
      */
     public static boolean isYearValid(String year, boolean hasDoubleByteChar) {
+
+        String regex = hasDoubleByteChar ? "^[0-9\\uFF10-\\uFF19]{1,4}$" : "^[0-9]{1,4}$";
+        
+        if (year == null || !year.matches(regex)) {
+            return false;
+        }
+        
         try {
             int yearInt = NumberUtil.parseInt(year, hasDoubleByteChar);
-            return isYearValid(yearInt);
+            return yearInt > 0 && yearInt < 10000;
         } catch (Exception e) {
             return false;
         }
@@ -147,12 +151,11 @@ public final class DateValidation {
      * <p>
      * The {@code month} just between 1 to 12
      *
-     * @author datnguyen
      * @param month the month want to check
      * @return true, if is month valid
      */
     public static boolean isMonthValid(int month) {
-        return month >= 1 && month <= 12;
+        return month > 0 && month < 13;
     }
 
     /**
@@ -163,15 +166,21 @@ public final class DateValidation {
      * <p>
      * The value of the argument str can be double-byte character
      * 
-     * @author datnguyen
      * @param month the month
      * @param hasDoubleByteChar the has double byte char
      * @return true, if is month
      */
     public static boolean isMonthValid(String month, boolean hasDoubleByteChar) {
+
+        String regex = hasDoubleByteChar ? "^[0-9\\uFF10-\\uFF19]{1,2}$" : "^[0-9]{1,2}$";
+
+        if (month == null || !month.matches(regex)) {
+            return false;
+        }
+
         try {
             int monthInt = NumberUtil.parseInt(month, hasDoubleByteChar);
-            return isMonthValid(monthInt);
+            return monthInt >= 1 && monthInt <= 12;
         } catch (Exception e) {
             return false;
         }
@@ -187,7 +196,7 @@ public final class DateValidation {
      * @return true, if is day is valid
      */
     public static boolean isDayValid(int day) {
-        return day >= 1 && day <= 31;
+        return day > 0 && day < 32;
     }
 
     /**
@@ -203,9 +212,16 @@ public final class DateValidation {
      * @return true, if the string input is valid
      */
     public static boolean isDayValid(String str, boolean hasDoubleByteChar) {
+
+        String regex = hasDoubleByteChar ? "^[0-9\\uFF10-\\uFF19]{1,2}$" : "^[0-9]{1,2}$";
+
+        if (str == null || !str.matches(regex)) {
+            return false;
+        }
+
         try {
             int day = NumberUtil.parseInt(str, hasDoubleByteChar);
-            return isDayValid(day);
+            return day >= 1 && day <= 31;
         } catch (Exception e) {
             return false;
         }
@@ -218,8 +234,8 @@ public final class DateValidation {
      * @param isFullHours true if want to check full hours format
      * @return true, if is hours
      */
-    public static boolean isHourValid(int hour, boolean isFullHours) {
-        return hour >= 0 && (isFullHours ? hour <= 23 : hour <= 12);
+    public static boolean isHourValid(int hour, boolean is24h) {
+        return hour >= 0 && (is24h ? hour < 24 : hour < 13);
     }
 
     /**
@@ -231,9 +247,16 @@ public final class DateValidation {
      * @return true, if is hours
      */
     public static boolean isHourValid(String str, boolean isFullHours, boolean hasDoubleByteChar) {
+
+        String regex = hasDoubleByteChar ? "^[0-9\\uFF10-\\uFF19]{1,2}$" : "^[0-9]{1,2}$";
+
+        if (str == null || !str.matches(regex)) {
+            return false;
+        }
+
         try {
             int hour = NumberUtil.parseInt(str, hasDoubleByteChar);
-            return isHourValid(hour, isFullHours);
+            return (isFullHours ? hour >= 0 && hour <= 23 : hour >= 1 && hour <= 12);
         } catch (Exception e) {
             return false;
         }
@@ -246,7 +269,7 @@ public final class DateValidation {
      * @return true, if is minutes
      */
     public static boolean isMinuteValid(int minute) {
-        return minute >= 0 && minute <= 59;
+        return minute >= 0 && minute < 60;
     }
 
     /**
@@ -257,9 +280,16 @@ public final class DateValidation {
      * @return true, if is minutes
      */
     public static boolean isMinuteValid(String str, boolean hasDoubleByteChar) {
+
+        String regex = hasDoubleByteChar ? "^[0-9\\uFF10-\\uFF19]{1,2}$" : "^[0-9]{1,2}$";
+        
+        if (str == null || !str.matches(regex)) {
+            return false;
+        }
+
         try {
             int minute = NumberUtil.parseInt(str, hasDoubleByteChar);
-            return isMinuteValid(minute);
+            return minute >= 0 && minute <= 59;
         } catch (Exception e) {
             return false;
         }
@@ -272,7 +302,7 @@ public final class DateValidation {
      * @return true, if is seconds
      */
     public static boolean isSecondValid(int second) {
-        return second >= 0 && second <= 59;
+        return second >= 0 && second < 60;
     }
 
     /**
@@ -283,9 +313,16 @@ public final class DateValidation {
      * @return true, if is seconds
      */
     public static boolean isSecondValid(String str, boolean hasDoubleByteChar) {
+
+        String regex = hasDoubleByteChar ? "^[0-9\\uFF10-\\uFF19]{1,2}$" : "^[0-9]{1,2}$";
+
+        if (str == null || !str.matches(regex)) {
+            return false;
+        }
+
         try {
             int second = NumberUtil.parseInt(str, hasDoubleByteChar);
-            return isSecondValid(second);
+            return second >= 0 && second <= 59;
         } catch (Exception e) {
             return false;
         }

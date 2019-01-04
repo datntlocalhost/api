@@ -2,8 +2,12 @@ package jp.com.run.util;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import jp.com.run.util.FileUtil;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+
 import jp.com.run.common.Constants;
 
 /**
@@ -66,5 +70,17 @@ public class FileUtil {
 		}
 
 		return null;
+	}
+	
+	public static Resource download(String name) {
+	    try {
+    	    Path path = Paths.get("/home/datnguyen/temp", name);
+    	    Resource resource = new UrlResource(path.toUri());
+    	    if (resource.exists()) {
+    	        return resource;
+    	    }
+	    } catch (Exception e) {
+        }
+	    return null;
 	}
 }

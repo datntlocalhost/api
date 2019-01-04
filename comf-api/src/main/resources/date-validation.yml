@@ -8,220 +8,104 @@ clazz:
 # isDateTime
       - id: FV1
         name: isDateTimeValid
-        desc: Checks if the date string input is valid date time.
-        params: 
+        desc: Cho phép kiểm tra chuỗi đã nhập có đúng định dạng Date time hay không. Chuỗi nhập phải là ký tự một byte.
+        params:
           - name: str
             type: String
-            desc: The string want to check.
+            desc: Chuỗi nhập cần kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern
+            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss)
         returns:
           value: null
           type: boolean
-          desc: Return true if the date string input is valid, else return false
-
-# isDateTimeLimit
-      - id: FV2
-        name: isDateTimeLimit
-        desc: Checks if the date string input is valid in a range date time.
-        params: 
-          - name: dateStr
-            type: String
-            desc: The date string want to check.
-          - name: minDateStr
-            type: String
-            desc: The min date string
-          - name: maxDateStr
-            type: String
-            desc: The max date string
-          - name: pattern
-            type: String
-            desc: The pattern
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the date string input is valid in a range date time, else return false
+          desc: Trả về true nếu chuỗi đã nhập đúng với định dạng Date time và đúng với định dạng pattern đã cho, ngược lại trả về false nếu chuỗi đã nhập và pattern là NULL hoặc EMPTY hoặc không đúng định dạng date time hoặc là chuỗi khác 1 byte.
 
 # isYear (int)
       - id: FV3
         name: isYearValid
-        desc: Checks if the number input is valid year
+        desc: Cho phép kiểm tra số đã nhập có đúng giá trị Year hay không. Year giới hạn từ 1 đến 9999. 
         params:
           - name: year
             type: int
-            desc: The number want to check
+            desc: Năm cần kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the number input is valid year, else return false
-# isYear (string)
-      - id: FV4
-        name: isYearValid
-        desc: Checks if the string input is valid year
-        params:
-          - name: year
-            type: String
-            desc: The string want to check
-          - name: hasDoubleByteChar
-            type: boolean
-            desc: Set true if the string input is contain double-byte character
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is valid year, else return false
+          desc: Trả về true số đã nhập đúng giá trị Year, ngược lại trả về false.
 
 # isMonth (int)
       - id: FV5
         name: isMonthValid
-        desc: Checks if the number input is valid month
+        desc: Cho phép kiểm tra số đã nhập có đúng giá trị Month hay không. Month giới hạn từ 1 đến 12.
         params:
           - name: month
             type: int
-            desc: The number want to check
+            desc: Tháng cần kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the number input is valid month, else return false
-# isMonth (string)
-      - id: FV6
-        name: isMonthValid
-        desc: Checks if the string input is valid month
-        params:
-          - name: month
-            type: String
-            desc: The string want to check
-          - name: hasDoubleByteChar
-            type: boolean
-            desc: Set true if the string input is contain double-byte character
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is valid month, else return false
+          desc: Trả về true số đã nhập đúng giá trị Month, ngược lại trả về false.
 
 # isDay (int)
       - id: FV7
         name: isDayValid
-        desc: Checks if the number input is valid day
+        desc: Cho phép kiểm tra số đã nhập có đúng giá trị Day hay không. Day giới hạn từ 1 đến 31.
         params:
           - name: day
             type: int
-            desc: The number want to check
+            desc: Ngày cần kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the number input is valid day, else return false
-# isDay (string)
-      - id: FV8
-        name: isDayValid
-        desc: Checks if the string input is valid day
-        params:
-          - name: day
-            type: String
-            desc: The string want to check
-          - name: hasDoubleByteChar
-            type: boolean
-            desc: Set true if the string input is contain double-byte character
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is valid day, else return false
-          
+          desc: Trả về true số đã nhập đúng giá trị Day, ngược lại trả về false.
+
 # isHours
       - id: FV9
         name: isHourValid
-        desc: Checks if the number input is valid hours
+        desc: Cho phép kiểm tra số đã nhập có đúng giá trị Hour hay không. Hour giới hạn từ 0 đến 12 nếu là dạng 12h, từ 0 đến 23 nếu là dạng 24h.
         params:
           - name: hour
             type: int
-            desc: The number want to check
-          - name: isFullHours
+            desc: Giờ cần kiểm tra.
+          - name: is24h
             type: boolean
-            desc: Set true if want to check with full hours (00 to 24)
+            desc: Gán là true nếu muốn kiểm tra theo dạng 24h, ngược lại false nếu muốn kiểm tra theo dạng 12h.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is valid hours, else return false
-# isHours
-      - id: FV10
-        name: isHourValid
-        desc: Checks if the string input is valid hours
-        params:
-          - name: hour
-            type: String
-            desc: The number want to check
-          - name: isFullHours
-            type: boolean
-            desc: Set true if want to check with full hours (00 to 24)
-          - name: hasDoubleByteChar
-            type: boolean
-            desc: Set true if the string is contain double-byte character
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is valid hours, else return false
-          
+          desc: Trả về true số đã nhập đúng giá trị Hour, ngược lại trả về false.
+
 # isMinutes
       - id: FV11
         name: isMinuteValid
-        desc: Checks if the number input is valid minutes
+        desc: Cho phép kiểm tra số đã nhập có đúng giá trị Minute hay không. Minute có giới hạn tự 0 đến 59.
         params:
           - name: minute
             type: int
-            desc: The number want to check
+            desc: Phút cần kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is valid minutes, else return false
-# isMinutes
-      - id: FV12
-        name: isMinuteValid
-        desc: Checks if the string input is valid minutes
-        params:
-          - name: str
-            type: String
-            desc: The string want to check
-          - name: hasDoubleByteChar
-            type: boolean
-            desc: Set true if the string input is contain double-byte character
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is valid minutes, else return false
-          
+          desc: Trả về true số đã nhập đúng giá trị Minute, ngược lại trả về false.
+
 # isSeconds
       - id: FV13
         name: isSecondValid
-        desc: Checks if the number input is valid minutes
+        desc: Cho phép kiểm tra số đã nhập có đúng giá trị Second hay không. Second có giới hạn tự 0 đến 59.
         params:
-          - name: minute
+          - name: second
             type: int
-            desc: The number want to check
+            desc: Giây cần kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is valid minutes, else return false
-# isSeconds
-      - id: FV14
-        name: isSecondValid
-        desc: Checks if the string input is valid seconds
-        params:
-          - name: str
-            type: String
-            desc: The string want to check
-          - name: hasDoubleByteChar
-            type: boolean
-            desc: Set true if the string input is contain double-byte character
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is valid seconds, else return false
-
+          desc: Trả về true số đã nhập đúng giá trị Second, ngược lại trả về false.
 
 # isFromLessOrEqualTo
       - id: FV15
         name: isFromLessOrEqualTo
-        desc: Checks if the date from is less than or equal to the date to
+        desc: Dùng để so sánh ngày, cho phép kiểm tra giá trị From có nhỏ hơn hoặc bằng giá trị To hay không.
         params:
           - name: dateFrom
             type: String
@@ -229,11 +113,14 @@ clazz:
           - name: dateTo
             type: String
             desc: The date to
-          - name: pattern
+          - name: isEqual
+            type: boolean
+            desc: Gán là true nếu muốn thêm so sánh bằng, ngược lại gán là false và hàm sẽ trả về false khi date from = date to.
+          - name: format
             type: String
-            desc: The pattern 
+            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng khi có định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss)
         returns:
           value: null
           type: boolean
-          desc: Return true, if the date from is less than or equal to the date to, false if parameter input is invalid or the date from is greater than the date to.
+          desc: Trả về true nếu date from nhỏ hơn date to và trong trường hợp tham số isEqual được gán là true và date from = date to, ngược lại trả về false nếu date from lớn hơn date to và trong trường hợp tham số isEqual được gán là false và date from = date to.
           

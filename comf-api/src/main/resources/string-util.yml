@@ -1,0 +1,86 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+# jp.co.run.validation.DateValidation
+  - name: jp.co.run.util.StringUtil
+    desc: string util
+    methods:
+
+# countByte
+      - id: FV1
+        name: countByte
+        desc: Đếm số byte của chuỗi đã nhập.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập.
+        returns:
+          value: null
+          type: int
+          desc: Trả về tổng số byte của chuỗi đã nhập.
+          
+# countCharacterMultiByte
+      - id: FV2
+        name: countCharacterMultiByte
+        desc: Đếm tổng số lượng ký tự trong chuỗi đã nhập.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập.
+        returns:
+          value: null
+          type: int
+          desc: Trả về tổng số lượng ký tự của chuỗi đã nhập. Trả về -1 nếu chuỗi đã nhập là NULL.
+          
+# countSingleByteCharacters
+      - id: FV3
+        name: countCharacter1Byte
+        desc: Đểm tổng số lượng ký tự một byte có trong chuỗi đã nhập.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập.
+        returns:
+          value: null
+          type: int
+          desc: Trả về tổng số lượng ký tự một byte có trong chuỗi đã nhập, trả về -1 nếu chuỗi đã nhập là NULL.
+          
+# countMultiByteCharacters
+      - id: FV4
+        name: countCharacterNon1Byte
+        desc: Đếm tổng số lượng ký tự khác ký tự một byte có trong chuỗi đã nhập.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập.
+        returns:
+          value: null
+          type: int
+          desc: Trả về tổng số lượng ký tự khác ký tự một byte có trong chuỗi đã nhập, trả về -1 nếu chuỗi đã nhập là NULL.
+          
+# convertHiraToKata
+      - id: FV5
+        name: convertHiraToKata
+        desc: Convert những ký tự hiragana có trong chuỗi đã nhập sang ký tự katakana.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập.
+        returns:
+          value: null
+          type: String
+          desc: Trả về chuỗi đã được chuyển đổi.
+          
+# convertKataToHira
+      - id: FV6
+        name: convertKataToHira
+        desc: Convert những ký tự katakana có trong chuỗi đã nhập sang ký tự hiragana.
+        params: 
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập.
+        returns:
+          value: null
+          type: String
+          desc: Trả về chuỗi đã được chuyển đổi.
+          
+          

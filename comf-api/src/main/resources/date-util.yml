@@ -1,0 +1,82 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+# jp.co.run.validation.DateValidation
+  - name: jp.co.run.util.DateUtil
+    desc: date util
+    methods:
+
+# getCurrentAge
+      - id: FV3
+        name: getCurrentYearOld
+        desc: Trả về số tuổi hiện tại dựa vào ngày tháng năm sinh đã nhập.
+        params: 
+          - name: time
+            type: String
+            desc: Ngày tháng năm sinh.
+          - name: format
+            type: String
+            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss)
+          - name: timeZoneID
+            type: String
+            desc: Timezone id, danh sách timezone id "https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/"
+        returns:
+          value: null
+          type: int
+          desc: Trả về số tuổi hiện tại, trả về -1 nếu input không hợp lệ.
+
+# convertDateToWeekInYear
+      - id: FV4
+        name: convertDateToWeek
+        desc: Convert ngày sang số tuần trong năm.
+        params: 
+          - name: time
+            type: String
+            desc: Ngày cần chuyển.
+          - name: format
+            type: String
+            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss).
+          - name: isMondayStart
+            type: boolean
+            desc: Gán là true nếu muốn tính ngày bắt đầu của tuần là Monday, ngược lại false nếu muốn ngày bắt đầu của tuần là Sunday.  
+        returns:
+          value: null
+          type: int
+          desc: Trả về số tuần trong năm, trả về -1 nếu input không hợp lệ.
+
+# convertWeekYearToDate
+      - id: FV5
+        name: convertWeekToDate
+        desc: Convert số tuần trong năm sang ngày.
+        params: 
+          - name: weekOfYear
+            type: int
+            desc: Số tuần trong năm, số tuần trong năm không thể nhập số <= 0.
+          - name: year
+            type: int
+            desc: Năm cần tính, số năm phải nằm trong phạm vi từ 1 đến 9999
+          - name: format
+            type: String
+            desc: Định dạng date time của kết quả trả về, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss).
+          - name: isMondayStart
+            type: boolean
+            desc: Gán là true nếu muốn tính ngày bắt đầu của tuần là Monday, ngược lại false nếu muốn ngày bắt đầu của tuần là Sunday.
+        returns:
+          value: null
+          type: String
+          desc: Trả về mốc thời gian của tuần trong năm.
+
+# convertTimeIntoJpYear
+      - id: FV6
+        name: convertTimeToJpCalandar
+        desc: Convert the string time input to japanse era name.
+        params: 
+          - name: time
+            type: String
+            desc: Ngày tháng năm cần chuyển.
+          - name: format
+            type: String
+            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss).
+        returns:
+          value: null
+          type: String
+          desc: Return the japanse era name, return empty string if the time is not found or invalid.

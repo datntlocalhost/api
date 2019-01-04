@@ -1,0 +1,22 @@
+!!jp.co.run.model.LibraryModel
+clazz:
+  - name: jp.co.run.util.NumberUtil
+    desc: number util
+    methods:
+
+# parseInt
+      - id: FV1
+        name: parseInt
+        desc: Parses the string input to integer number.
+        params: 
+          - name: str
+            type: String
+            desc: The string input want to parses.
+          - name: hasDoubleByteNumber
+            type: boolean
+            desc: Set true if the string input have double-byte numeric character.
+        returns:
+          value: null
+          type: int
+          desc: The integer number.
+

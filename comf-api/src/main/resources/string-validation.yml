@@ -7,301 +7,355 @@ clazz:
 # isNull
       - id: FV1
         name: isNull
-        desc: Checks if the string input is null.
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là NULL hay không.
         params: 
           - name: str
             type: String
-            desc: The string want to check.
+            desc: Chuỗi cần nhập để kiểm tra
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is null, else return false
+          desc: Trả về true nếu chuỗi đã nhập là NULL, ngược lại trả về false.
 # isNullOrEmpty
       - id: FV1.1
         name: isNullOrEmpty
-        desc: Checks if the string input is null or empty
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là NULL hoặc EMPTY hay không. (Chuỗi EMPTY trong hàm này có nghĩa là chuỗi khác NULL và có độ dài là 0)
         params:
           - name: str
             type: String
-            desc: The string want to check.
+            desc: Chuỗi cần nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is null or empty, else return false
+          desc: Trả về true nếu chuỗi đã nhập là NULL hoặc EMPTY, ngược lại trả về false.
 
 # isEmpty
       - id: FV1.1.1
         name: isEmpty
-        desc: Checks if the string input is empty (the length of string equal zero).
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là EMPTY hay không. (Chuỗi EMPTY trong hàm này có nghĩa là chuỗi khác NULL và chuỗi có độ dài là 0). 
         params:
           - name: str
             type: String
-            desc: The string want to check.
+            desc: Chuỗi cần nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is null, else return false.
+          desc: Trả về true nếu chuỗi đã nhập là NULL hoặc EMPTY, ngược lại trả về false.
 
 # isEmptyWithoutBlank
       - id: FV1.1.2
         name: isEmptyWithoutBlank
-        desc: Checks if the string input is empty (whitespace character).
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là EMPTY hay không. (Chuỗi EMPTY trong hàm này có nghĩa là chuỗi khác NULL và chuỗi có độ dài là 0 hoặc chuỗi chỉ chứa ký tự khoảng trắng half-width hoặc full-width).
         params:
           - name: str
             type: String
-            desc: The string want to check.
+            desc: Chuỗi cần nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is null, else return false.
-          
-# isBlank
-      - id: FV2
-        name: isBlank
-        desc: Checks if the string is blank (single-byte and double-byte whitespace).
-        params:
-          - name: str
-            type: String
-            desc: The string want to check.
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is blank (whitespace).
+          desc: Trả về true nếu chuỗi đã nhập là NULL hoặc EMPTY, ngược lại trả về false.
 
 # isMaxLength
       - id: FV3
         name: isMaxLengthValid
-        desc: Checks if the string input is max length
+        desc: Cho phép kiểm tra chuỗi đã nhập có vượt quá số lượng ký tự cho phép hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: maxLength
             type: int
-            desc: the max length
+            desc: Số lượng ký tự cao nhất có thể nhập.
         returns:
           value: null
           type: boolean
-          desc: Return true if length of the string input is less than or equal to maxLength, else return false
+          desc: Trả về true nếu chuỗi không vượt quá số lượng ký tự được cho phép, ngược lại nếu chuỗi nhập là NULL hoặc maxLength < 0 hoặc chuỗi nhập vượt quá số lượng ký tự cho phép thì trả về false. 
 
 # isMinLength
       - id: FV4
         name: isMinLengthValid
-        desc: Checks if the string input is min length
+        desc: Cho phép kiểm tra chuỗi đã nhập có lớn hơn số ký được cho phép.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: minLength
             type: int
-            desc: the min length
+            desc: Số lượng ký tự ít nhất có thể nhập.
         returns:
           value: null
           type: boolean
-          desc: Return true if length of the string input is greater than or equal to maxLength, else return false
+          desc: Trả về true nếu chuỗi nhập có số lượng ký tự lớn hơn hoặc bằng số lượng ký tự được cho phép, ngược lại nếu chuỗi nhập là NULL hoặc minLength < 0 hoặc chuỗi nhập có số lượng ký tự ít hơn số lượng ký tự được cho phép thì trả về false.
 
-# isByteCharacterOnly
+# isOneByteCharacterOnly
       - id: FV5
-        name: isByteCharacterOnly
-        desc: Checks if the string input is just contain single-byte character
+        name: isOneByteCharacterOnly
+        desc: Cho phép kiểm tra chuỗi đã nhập chỉ chứa ký tự một byte hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is just contain single-byte character, else return false
-# isTwoByteCharacterOnly
-      - id: FV6
-        name: isTwoByteCharacterOnly
-        desc: Checks if the string input is just contain double-byte, three-byte or four-byte character
-        params:
-          - name: str
-            type: String
-            desc: The string want to check
-        returns:
-          value: null
-          type: boolean
-          desc: Return true if the string input is just contain double-byte, three-byte or four-byte character, else return false
-# # isThreeByteCharacterOnly
-#       - id: FV7 
-#         name: isThreeByteCharacterOnly
-#         desc: Checks if the string input is just contain three-byte character
-#         params:
-#           - name: str
-#             type: String
-#             desc: The string want to check
-#         returns:
-#           value: null
-#           type: boolean
-#           desc: Return true if the string input is just contain three-byte character, else return false
-# # isFourByteCharacterOnly
-#       - id: FV8
-#         name: isFourByteCharacterOnly
-#         desc: Checks if the string input is just contain four-byte character
-#         params:
-#           - name: str
-#             type: String
-#             desc: The string want to check
-#         returns:
-#           value: null
-#           type: boolean
-#           desc: Return true if the string input is just contain four-byte character, else return false
+          desc: Trả về true nếu chuỗi đã nhập chỉ chứa ký tự một byte, ngược lại trả về false nếu chuỗi đã nhập là NULL hoặc chứa những ký tự khác ký tự một byte.
 
 # isNotSpecialCharacter
       - id: FV3.1
         name: isNotSpecialCharacter
-        desc: Checks if the string input is not special character.
+        desc: Cho phép kiểm tra chuỗi đã nhập có chứa những ký tự đặc biệt nào hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern that contain character or symbol can put in string input.
+            desc: Chuỗi pattern chứa những ký tự được phép nhập vào str (bao gồm cả những ký tự đặc biệt).
         returns:
           value: null
           type: boolean
-          desc: Return true if length of the string input is not special character, else return false
+          desc: Trả về true nếu chuỗi đã nhập KHÔNG chứa ký tự đặc biệt, ngược lại trả về false nếu chuỗi đã nhập là NULL hoặc chứa những ký tự đặc biệt mà trong pattern không có.
 
 # isKatakana
       - id: FV14
         name: isKatakana
-        desc: Checks if the string input is just contain katakana character
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chữ Katakana hay không.
         params: 
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern string contain some symbol or character that can put into the string input
+            desc: Chuỗi pattern chứa những ký tự được phép nhập vào str (bao gồm cả những ký tự đặc biệt).
+          - name: isShiftJis
+            type: boolean
+            desc: Gán là true nếu muốn kiểm tra chữ Katakana theo bảng Shift Jis, ngược lại hàm sẽ kiểm tra theo bảng Unicode nếu tham số được gán là false.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input just contain katakana character and character in pattern, else return false
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi Katakana, ngược lại nếu chuỗi đã nhập là NULL hoặc chứa những ký tự không phải là Katakana hoặc những ký tự không nằm trong những ký tự được cho phép thì trả về false.
           
 # isHiragana
       - id: FV15
         name: isHiragana
-        desc: Checks if the string input is just contain haragana character
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chữ Hiragana hay không.
         params: 
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern string contain some symbol or character that can put into the string input
+            desc: Chuỗi pattern chứa những ký tự được phép nhập vào str (bao gồm cả những ký tự đặc biệt).
+          - name: isShiftJis
+            type: boolean
+            desc: Gán là true nếu muốn kiểm tra chữ Katakana theo bảng Shift Jis, ngược lại hàm sẽ kiểm tra theo bảng Unicode nếu tham số được gán là false.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input just contain haragana character and character in pattern, else return false
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi Hiragana, ngược lại nếu chuỗi đã nhập là NULL hoặc chứa những ký tự không phải là Katakana hoặc những ký tự không nằm trong những ký tự được cho phép thì trả về false.
           
 # isKanji
       - id: FV16
         name: isKanji
-        desc: Checks if the string input is just contain kanji character
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chữ Kanji hay không.
         params: 
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern string contain some symbol or character that can put into the string input
+            desc: Chuỗi pattern chứa những ký tự được phép nhập vào str (bao gồm cả những ký tự đặc biệt).
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input just contain kanji character and character in pattern, else return false
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi Kanji, ngược lại nếu chuỗi đã nhập là NULL hoặc chứa những ký tự không phải là Katakana hoặc những ký tự không nằm trong những ký tự được cho phép thì trả về false.
           
 # isHasBlank
       - id: FV41
         name: isHasBlankValid
-        desc: Checks if the string input has blank (whitespace) character
+        desc: Cho phép kiểm tra chuỗi đã nhập có chứa kí tự khoảng trắng hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: multiByte
             type: boolean
-            desc: Setup true if want to check double-byte whitespace character within string input
+            desc: Gán là true nếu muốn kiểm tra có chứa ký tự khoảng trắng full-width, ngược lại gán là false nếu chỉ muốn check ký tự khoảng trắng half-width.
         returns:
           value: null
           type: boolean
-          desc: Return true if there are blank (whitespace) within string input, else return false
+          desc: Trả về true nếu chuỗi đã nhập chứa ký tự khoảng trắng. ngược lại nếu chuỗi đã nhập là NULL hoặc chuỗi không chứa ký tự khoảng trắng thì trả về false.
 
 # isHasFirstBlank
       - id: FV42
         name: isHasFirstBlankValid
-        desc: Checks if the string input has blank (whitespace) at first character
+        desc: Cho phép kiểm trả xem ký tự đầu tiên của chuỗi có phải là ký tự khoảng trắng hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: multiByte
             type: boolean
-            desc: Setup true if want to check double-byte whitespace character within string input
+            desc: Gán là true nếu muốn kiểm tra có chứa ký tự khoảng trắng full-width, ngược lại gán là false nếu chỉ muốn check ký tự khoảng trắng half-width.
         returns:
           value: null
           type: boolean
-          desc: Return true if has blank (whitespace) character at first character of the string input, else return fasle
+          desc: Trả về true nếu ký tự đầu tiên của chuỗi là ký tự khoảng trắng, ngược lại trả về false nếu chuỗi đã nhập là NULL hoặc ký tự đầu tiên của chuỗi không phải là ký tự khoảng trắng.
 
 # isHasLastBlank
       - id: FV43
         name: isHasLastBlankValid
-        desc: Checks if the string input has blank (whitespace) at last character
+        desc: Cho phép kiểm trả xem ký tự cuối cùng của chuỗi có phải là ký tự khoảng trắng hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: multiByte
             type: boolean
-            desc: Setup true if want to check double-byte whitespace character within string input
+            desc: Gán là true nếu muốn kiểm tra có chứa ký tự khoảng trắng full-width, ngược lại gán là false nếu chỉ muốn check ký tự khoảng trắng half-width.
         returns:
           value: null
           type: boolean
-          desc: Return true if has blank (whitespace) character at last character of the string input, else return fasle
+          desc: Trả về true nếu ký tự cuối cùng của chuỗi là ký tự khoảng trắng, ngược lại trả về false nếu chuỗi đã nhập là NULL hoặc ký tự cuối cùng của chuỗi không phải là ký tự khoảng trắng.
 # isEmailValid
       - id: FV44
         name: isEmailValid
-        desc: Checks if email is valid format
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là định dạng email hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern contain symbol or character can put in local part
+            desc: Chuỗi pattern chứa những ký tự được phép nhập (bao gồm cả ký tự đặc biệt) ở phần trước dấu "@".
         returns:
           value: null
           type: boolean
-          desc: Return true if email input is valid, else return fasle
+          desc: Trả về true nếu chuỗi đã nhập là định dạng email, ngược lại nếu chuỗi đã nhập là NULL hoặc không phải là định dạng email thì trả về false.
 
 # isAlphabetCharacter
       - id: FV45
         name: isAlphabetCharacter
-        desc: Checks if the string input is alphabet character (single-byte).
+        desc: Cho phép kiểm tra chuỗi đã nhập có chứa ký tự alphabet hay không.
         params:
           - name: str
             type: String
-            desc: The string want to check.
+            desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: The pattern contain symbol or character can put in local part.
+            desc: Chuỗi pattern chứa những ký tự được phép nhập.
           - name: isAlphanumeric
             type: boolean 
-            desc: Set true if the string input that contain numeric character.
+            desc: Gán true nếu chuỗi nhập có thể chứa những ký tự numeric 0-9, ngược lại gán là false.
         returns:
           value: null
           type: boolean
-          desc: Return true if the string input is alphabet character, else return fasle
-#      - id: string2
-#        name:
-#        desc:
-#        params:
-#          - name:
-#            type:
-#            desc:
-#        returns:
-#          value:
-#          type:
-#          desc:
+          desc: Trả về true nếu chuỗi đã nhập chỉ chứa ký tự alphabet và những ký tự xuất hiện trong pattern, ngược lại trả về false.
+          
+# isPasswordValid
+      - id: FV46
+        name: isPasswordValid
+        desc: Cho phép kiểm tra password đã nhập có hợp lệ hay không.
+        params:
+          - name: str
+            type: String
+            desc: Chuỗi password cần nhập để kiểm tra.
+          - name: upperCase
+            type: boolean
+            desc: Gán là true nếu password có thể chứa những ký tự uppercase, ngược lại gán là false.
+          - name: lowerCase
+            type: boolean 
+            desc: Gán là true nếu password có thể chứa những ký tự lowercase, ngược lại gán là false.
+          - name: specialChar
+            type: boolean 
+            desc: Gán là true nếu password có thể chứa những ký tự đặc biệt, ngược lại gán là false.
+          - name: number
+            type: boolean 
+            desc: Gán là true nếu password có thể chứa những ký tự numeric [0-9], ngược lại gán là false.
+          - name: space
+            type: boolean 
+            desc: Gán là true nếu password có thể chứa những ký tự khoảng trắng, ngược lại gán là false.
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu password đã nhập là hợp lệ với những điều kiện đã đặt ra, ngược lại trả về false.
+
+# isHalfWidthKata
+      - id: FV47
+        name: isHalfWidthKata
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chuỗi half-width Katakana hay không.
+        params:
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập để kiểm tra.
+          - name: pattern
+            type: String
+            desc: Chuỗi pattern chứa những ký tự được phép xuất hiện trong chuỗi half-width katakana.
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi half-width Katakana, ngược lại nếu chuỗi là NULL hoặc chứa những ký tự không phải là half-width Katakana thì trả về false.
+
+# isFullWidthKata
+      - id: FV48
+        name: isFullWidthKata
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chuỗi full-width Katakana hay không.
+        params:
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập để kiểm tra.
+          - name: pattern
+            type: String
+            desc: Chuỗi pattern chứa những ký tự được phép xuất hiện trong chuỗi full-width katakana.
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi full-width Katakana, ngược lại nếu chuỗi là NULL hoặc chứa những ký tự không phải là full-width Katakana thì trả về false.
+
+# isHalfWidthAlphabet
+      - id: FV49
+        name: isHalfWidthAlphabet
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chuỗi half-width alphabet hay không.
+        params:
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập để kiểm tra.
+          - name: isAlphanumeric
+            type: boolean 
+            desc: Gán true nếu chuỗi nhập có thể chứa những ký tự numeric 0-9, ngược lại gán là false.
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi half-width alphabet, ngược lại trả về false.
+
+# isFullWidthAlphabet
+      - id: FV50
+        name: isFullWidthAlphabet
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là chuỗi full-width alphabet hay không.
+        params:
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập để kiểm tra.
+          - name: isAlphanumeric
+            type: boolean 
+            desc: Gán true nếu chuỗi nhập có thể chứa những ký tự numeric 0-9, ngược lại gán là false.
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu chuỗi đã nhập là chuỗi full-width alphabet, ngược lại trả về false.
+
+# isPhoneNumber
+      - id: FV51
+        name: isPhoneNumber
+        desc: Cho phép kiểm tra chuỗi đã nhập có phải là định dạng số điện thoại hay không.
+        params:
+          - name: str
+            type: String
+            desc: Chuỗi cần nhập để kiểm tra.
+          - name: pattern
+            type: String
+            desc: Chuỗi regex expression định đạng số điện thoại. Ví dụ "^(037)([0-9]{4}(999))$"
+        returns:
+          value: null
+          type: boolean
+          desc: Trả về true nếu chuỗi đã nhập matches với pattern đã cho, ngược lại trả về false.
