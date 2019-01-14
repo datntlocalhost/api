@@ -34,10 +34,7 @@ clazz:
             desc: Ngày cần chuyển.
           - name: format
             type: String
-            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss).
-          - name: isMondayStart
-            type: boolean
-            desc: Gán là true nếu muốn tính ngày bắt đầu của tuần là Monday, ngược lại false nếu muốn ngày bắt đầu của tuần là Sunday.  
+            desc: Định dạng date time của chuỗi đã nhập, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số (2018/10/10 -> yyyy/MM/dd).
         returns:
           value: null
           type: int
@@ -50,16 +47,13 @@ clazz:
         params: 
           - name: weekOfYear
             type: int
-            desc: Số tuần trong năm, số tuần trong năm không thể nhập số <= 0.
+            desc: Số tuần trong năm, số tuần trong năm không thể nhập số < 1 hoặc > 53.
           - name: year
             type: int
             desc: Năm cần tính, số năm phải nằm trong phạm vi từ 1 đến 9999
           - name: format
             type: String
-            desc: Định dạng date time của kết quả trả về, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số, HH là định dạng giờ 24h, hh là định dạng giờ 12h, mm là định dạng phút với 2 số, ss là định dạng giây với 2 số, aa là định dạng AM hoặc PM và sử dụng chung với định dạng 12h (2018/10/10 23:01:01 -> yyyy/MM/dd HH:mm:ss).
-          - name: isMondayStart
-            type: boolean
-            desc: Gán là true nếu muốn tính ngày bắt đầu của tuần là Monday, ngược lại false nếu muốn ngày bắt đầu của tuần là Sunday.
+            desc: Định dạng date time của kết quả trả về, yyyy là định dạng năm với 4 số, MM định dạng tháng với 2 số, dd là định dạng ngày với 2 số (2018/10/10 -> yyyy/MM/dd).
         returns:
           value: null
           type: String

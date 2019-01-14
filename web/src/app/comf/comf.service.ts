@@ -10,7 +10,8 @@ import { MethodModel } from 'src/shared/model/method.model';
 
 @Injectable({ providedIn: 'root' })
 export class ComfService {
-  private apiUrl = 'http://10.1.12.106:8080/comf-api/api';
+  private apiUrl = 'http://10.1.10.160:8080/comf-api/api';
+  // private apiUrl = 'http://localhost:8080/api';
 
   constructor(
     private http: HttpClient,

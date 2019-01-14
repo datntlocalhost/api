@@ -4,19 +4,19 @@ clazz:
     desc: number util
     methods:
 
-# parseInt
+# ConvertNumberTo1Byte
       - id: FV1
-        name: parseInt
-        desc: Parses the string input to integer number.
+        name: convertNumberTo1Byte
+        desc: "Convert chuỗi số có chứa ký tự full-width sang số float. Trong java số float sẽ có mức độ sai số nhất định (Ví dụ: 123456.1234 => 123456.125) và mặc định chỉ hiển thị tối đa 3 số thập phân." 
         params: 
           - name: str
             type: String
-            desc: The string input want to parses.
-          - name: hasDoubleByteNumber
+            desc: Chuỗi số cần chuyển đổi.
+          - name: separate
             type: boolean
-            desc: Set true if the string input have double-byte numeric character.
+            desc: "kí tự dấu phân cách số thập phân (1 kí tự, kiểm tra trong chuỗi có 2 kí tự như vậy thì là fail). Default dấu chấm (true). Nếu false thì là dấu ','. (bao gồm cả 1 byte và 2 byte)"
         returns:
           value: null
-          type: int
-          desc: The integer number.
+          type: float
+          desc: Float number sau khi convert.
 

@@ -24,7 +24,7 @@ public class MethodManager {
 
     /** The Constant YAML_FILE_NAME. */
     private static final String[] YAML_FILE_NAME = {"string-validation.yml", "date-validation.yml", "number-validation.yml",
-                                                    "url-validation.yml", "date-util.yml","string-util.yml"};
+                                                    "url-validation.yml", "date-util.yml","string-util.yml", "number-util.yml"};
 
     /** The Constant JAR_FILE_NAME. */
     private static final String JAR_FILE_NAME = "ValidationCommon.jar";

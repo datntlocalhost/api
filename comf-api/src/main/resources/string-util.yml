@@ -82,5 +82,31 @@ clazz:
           value: null
           type: String
           desc: Trả về chuỗi đã được chuyển đổi.
+
+      - id: FV7
+        name: convertZipCodeToAddress
+        desc: Convert mã zipcode sang địa chỉ nhập bản.
+        params:
+          - name: zipcode
+            type: String
+            desc: "Mã zipcode (Ví dụ: 8614132 hoặc 861-4132)"
+          - name: isEN
+            type: boolean
+            desc: Gán là true nếu muôn kết quả trả về là tiếng anh, false nếu muốn kết quả trả về là tiếng nhật. 
+        returns:
+          value: null
+          type: String
+          desc: Địa chỉ tương ứng với zipcode.
           
+      - id: FV8
+        name: convertAddressToZipCode
+        desc: Convert địa chỉ sang zipcode.
+        params:
+          - name: address
+            type: String
+            desc: Địa chỉ cần convert sang zipcode.
+        returns:
+          value: null
+          type: String
+          desc: Zipcode tương ứng với địa chỉ (format 7 chữ số không có dấu phân cách).
           

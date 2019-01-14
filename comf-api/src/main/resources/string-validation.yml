@@ -148,7 +148,7 @@ clazz:
             desc: Chuỗi pattern chứa những ký tự được phép nhập vào str (bao gồm cả những ký tự đặc biệt).
           - name: isShiftJis
             type: boolean
-            desc: Gán là true nếu muốn kiểm tra chữ Katakana theo bảng Shift Jis, ngược lại hàm sẽ kiểm tra theo bảng Unicode nếu tham số được gán là false.
+            desc: Gán là true nếu muốn kiểm tra chữ isHiragana theo bảng Shift Jis, ngược lại hàm sẽ kiểm tra theo bảng Unicode nếu tham số được gán là false.
         returns:
           value: null
           type: boolean
@@ -227,7 +227,7 @@ clazz:
             desc: Chuỗi cần nhập để kiểm tra.
           - name: pattern
             type: String
-            desc: Chuỗi pattern chứa những ký tự được phép nhập (bao gồm cả ký tự đặc biệt) ở phần trước dấu "@".
+            desc: "Chuỗi pattern chứa những ký tự được phép nhập (bao gồm cả ký tự đặc biệt) ở phần trước dấu @."
         returns:
           value: null
           type: boolean
@@ -307,6 +307,9 @@ clazz:
           - name: pattern
             type: String
             desc: Chuỗi pattern chứa những ký tự được phép xuất hiện trong chuỗi full-width katakana.
+          - name: isShiftJis
+            type: boolean
+            desc: Gán true nếu muốn kiểm tra chữ katakata theo bảng ShiftJis ngược lại gán false nếu muôn kiếm tra theo bảng Unicode.
         returns:
           value: null
           type: boolean
